@@ -43,6 +43,7 @@ Start up XLaunch, and select `One large window`, keep clicking next until you en
 Make sure to select `Disable Access Control`. 
 7. You can now freely run any GUI, and it will launch via your Virtual Display.  
 Lazy? Create a [XLaunch Shortcut](https://siliconheaven.info/xlaunch-configuration-file/#gsc.tab=0)  
-PS: *Make sure that XLaunch is running and before calling the Linux GUI Apps on Windows Desktop environment.*  
+PS: *Make sure that XLaunch is running and before calling any Linux GUI Apps on Windows Desktop environment.*  
 
-References : [1](https://openfoam.org/download/windows-10/) [2](https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242)
+References : [1](https://openfoam.org/download/windows-10/) [2](https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242) 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgjbahttps%3A%2F%2Fgithub.com%2Frelaxxpls%2FOpenFOAM%2Ftree%2Fmain%2Fdocs%2Fsetupe1212%2Fhit-counter&count_bg=%23FD4646&title_bg=%23646464&icon=&icon_color=%23D7E4FF&title=VIEWS&edge_flat=true)](https://hits.seeyoufarm.com)
