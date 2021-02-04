@@ -1,4 +1,4 @@
 # OpenFOAM
 Source Code for CL246 Project
 
-[*Installation Instructions*](/docs/SETUP.md)
+[*Installation Instructions*](/docs/setup/README.md)
