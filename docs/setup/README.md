@@ -1,4 +1,4 @@
-#**Installation Intructions**  
+#Installation Intructions  
 
 1. Go to [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and follow the *manual instruction* steps presented there.  
 
