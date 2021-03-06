@@ -1,6 +1,5 @@
 \documentclass[preview,border=12pt,varwidth]{standalone}
-\usepackage{array,tabularx}
-\usepackage{amsmath}
+\usepackage{array,tabularx, mathtools, amsmath}
 
 \newenvironment{conditions*}
   {\par\vspace{\abovedisplayskip}\noindent
@@ -9,15 +8,12 @@
 
 \begin{document}
 
-\[ 
-\theta_j(x=\mathrm{X_1}, t) = \theta_{j+1}(x=\mathrm{X_1}, t)
-\tag{3.1} \label{eq:3.1}
-\]
-
-\[
--k_j \left. \frac{\partial \theta_j}{\partial x} \right\vert_{x=\mathrm{X_1}} = -k_{j+1} \left. \frac{\partial \theta_{j+1}}{\partial{x}} \right\vert_{x=\mathrm{X_1}}
-\tag{3.2} \label{eq:3.2}
-\] \medskip
+\begin{align*}
+  \tag{3.1} \label{eq:3.1}
+    \theta_j(x=\mathrm{X_1}, t) &= \theta_{j+1}(x=\mathrm{X_1}, t) \\ \\
+  \tag{3.2} \label{eq:3.2}
+    -k_j \left. \frac{\partial \theta_j}{\partial x} \right\vert_{x=\mathrm{X_1}} &= -k_{j+1} \left. \frac{\partial \theta_{j+1}}{\partial{x}} \right\vert_{x=\mathrm{X_1}}
+\end{align*}
 
 where:
 \begin{conditions*}
@@ -26,22 +22,22 @@ where:
 \end{conditions*} \medskip
 
 Assumptions:
-\[ 
-S(t) = S_0 
-\tag{3.3} \label{eq:3.3}
-\]
-\[
-\dot{Q}_W(t) = A(u(\theta_S -T_R)) 
-\tag{3.4} \label{eq:3.4}
-\]
+\begin{align*}
+  \tag{3.3} \label{eq:3.3}
+    S(t) &= S_0 \\
+  \tag{3.4} \label{eq:3.4}
+    \dot{Q}_W(t) &= A(u(\theta_S -T_R)) 
+\end{align*}
 
 where:
-\[ 
-\frac{1}{u} = \frac{1}{h_o} + \sum_j\frac{X_j}{k_j} + \frac{1}{h_i}
-\]
+\begin{align}
+  \tag{3.5} \label{eq:3.5}
+    \frac{1}{u} &= \frac{1}{h_o} + \sum_j\frac{X_j}{k_j} + \frac{1}{h_i}
+\end{align}
+
 \begin{conditions*}
-h_o  &  outer convection coefficient \\
-h_i  &  inner convection coefficient \\
+  h_o  &  outer convection coefficient \\
+  h_i  &  inner convection coefficient \\
 \end{conditions*}
 
 \end{document}
