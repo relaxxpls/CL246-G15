@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Installation  
 #### *Windows 10 users only*  
 
