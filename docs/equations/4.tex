@@ -1,0 +1,63 @@
+\documentclass[preview, border=12pt, varwidth]{standalone}
+\usepackage{array,tabularx, mathtools, amsmath}
+
+\newenvironment{conditions*}
+  {\par\vspace{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{$}l<{$} @{\ : } >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+\begin{document}
+
+\section*{(3) Evaporative cooling:}
+  
+\begin{multline}
+  \tag{4.1} \label{eq:4.1}
+    (bd \rho_w C_w \frac{\partial T_w}{\partial t} + \dot{m}_w C_w \frac{\partial T_w}{\partial y}) dy = [\tau_1 S(t) \\ -Q_r -Q_c -Q_e + h_1 (\left. \theta_1 \right\vert_{x=0} - T_w)]bdy 
+\end{multline}
+
+\begin{align}
+  \tag{4.2} \label{eq:4.2}
+    Q_r ={}& h_r(T_w-T_A)  \\
+  \tag{4.3} \label{eq:4.3}
+    Q_c ={}& h_c(T_w-T_A)  \\
+  \tag{4.4} \label{eq:4.4}
+    Q_e ={}& 0.013 h_e [p(\bar{T}_w - \gamma p(\bar{T}_A)]
+\end{align}
+
+where:
+\begin{conditions*}
+    \enspace \tau_1  &  fraction of solar radiation absorbed by water \\
+    \enspace Q_r  &  radiative heat \\
+    \enspace Q_c  &  convective heat flux \\
+    \enspace \rho  &  saturated partial pressure \\
+    \left. 
+        \begin{array}{l} 
+            h_r \\ h_e \\ h_c \\ 
+        \end{array} 
+    \right \}  &  respective heat transfer coefficient 
+\end{conditions*} \medskip
+
+\begin{align}
+  \tag{4.5} \label{eq:4.5}
+    P(T) &= R_{1}T + R
+\end{align}
+
+on simplification,
+\begin{align}
+  \tag{4.6} \label{eq:4.6}
+    M_w \frac{\partial T_w}{\partial t} + \dot{m_w} C_w \frac{\partial T_w}{\partial y} &= bH(T_S-T_w) + bh_1 (\left. \theta_1 \right\vert_{x=0} - T_w) \\
+  \tag{4.7} \label{eq:4.7}
+    T_s &= 1/H (\tau_1S(t) + H_1T_A(t) - R_0R_2(1-r)) \\
+  \tag{4.8} \label{eq:4.8}
+    H &= h_r + h_c + R_0R_1 \\
+  \tag{4.9} \label{eq:4.9}
+    H_1 &= h_r+h_c+rR_0R_1 \\
+  \tag{4.10} \label{eq:4.10}
+    R_0 &= 0.013h_c \\
+  \tag{4.11} \label{eq:4.11}
+    M_w &= bdC_wS_w \\
+  \tag{4.12} \label{eq:4.12}
+    \dot{Q}(y,t) &= h_i[\theta|_{x=x_4} - T_R]
+\end{align}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass[preview,border=12pt,varwidth]{standalone}
+
+\usepackage{array,tabularx,amsmath}
+
+\newenvironment{conditions*}
+  {\par\vspace{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{$}l<{$} @{\ : } >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+\begin{document}
+
+In general:
+\[
+k  \frac{\partial^2 \theta_j}{\partial x^2} = \rho c \frac{\partial \theta_j}{\partial t}
+\tag{2.1} \label{eq:2.1}
+\] \smallskip
+
+Boundary conditions:
+
+\[
+-k \left. \frac{\partial \theta}{\partial x} \right\vert_{x=\mathrm{0}}  = h_0 [\theta_{SA}(t) - \left. \theta \right\vert_{x=\mathrm{0}}]
+\tag{BC 1} \label{BC:1} 
+\]
+
+\[
+-k  \left.\frac{\partial \theta}{\partial x}\right\vert_{x=\mathrm{X}} = h_i [\theta (x=\mathrm{X}, t) - T_R]
+\tag{BC 2} \label{BC:2}
+\] \medskip
+
+where:
+\[
+\theta_{SA} = \frac{\alpha_S S(t)}{h_0} + T_A - \frac{\varepsilon \Delta R}{h_0}
+\tag{2.2} \label{eq:2.2}
+\]
+
+\begin{conditions*}
+ \theta_{SA}  &  sol air temperature \\
+ S(t)  &  intensity of solar radiation \\
+ \alpha_S  &  absorptivity of surface \\
+ \Delta R  &  difference between radiation from surrounding and that emmited by a blackbody at ambient air temperature
+\end{conditions*}
+
+\end{document}
+
+

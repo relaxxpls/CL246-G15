@@ -1,0 +1,26 @@
+\documentclass[preview,border=12pt,varwidth]{standalone}
+\usepackage{array,tabularx, mathtools, amsmath}
+
+\newenvironment{conditions*}
+  {\par\vspace{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{$}l<{$} @{\ : } >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+\begin{document}
+
+\begin{align}
+  \tag{1} \label{eq:1}
+    M_R  \frac{\mathrm{d} T_R}{\mathrm{d} t} = \dot{Q}_W(t) + \dot{Q}_R + \dot{Q}_D(t) - \dot{Q}_F(t) - \dot{Q}_{inf/ven}(t)
+\end{align}
+
+where
+\begin{conditions*}
+ \dot{Q}_W(t)  &  heat flux through the walls \\
+ \dot{Q}_R  &  heat flux through the roof \\
+ \dot{Q}_D(t)  &  heat flux through the door \\
+ \dot{Q}_{inf/ven}(t)  &  heat flux due to air flow caused by infiltration/ventilation  \\
+\end{conditions*}
+
+\end{document}
+
+

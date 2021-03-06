@@ -1,0 +1,47 @@
+\documentclass[preview,border=12pt,varwidth]{standalone}
+\usepackage{array,tabularx}
+\usepackage{amsmath}
+
+\newenvironment{conditions*}
+  {\par\vspace{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{$}l<{$} @{\ : } >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+\begin{document}
+
+\[ 
+\theta_j(x=\mathrm{X_1}, t) = \theta_{j+1}(x=\mathrm{X_1}, t)
+\tag{3.1} \label{eq:3.1}
+\]
+
+\[
+-k_j \left. \frac{\partial \theta_j}{\partial x} \right\vert_{x=\mathrm{X_1}} = -k_{j+1} \left. \frac{\partial \theta_{j+1}}{\partial{x}} \right\vert_{x=\mathrm{X_1}}
+\tag{3.2} \label{eq:3.2}
+\] \medskip
+
+where:
+\begin{conditions*}
+ k_i  &  conductivity of $i^{th}$ layer \\
+ T_A  &  ambient air temperature \\
+\end{conditions*} \medskip
+
+Assumptions:
+\[ 
+S(t) = S_0 
+\tag{3.3} \label{eq:3.3}
+\]
+\[
+\dot{Q}_W(t) = A(u(\theta_S -T_R)) 
+\tag{3.4} \label{eq:3.4}
+\]
+
+where:
+\[ 
+\frac{1}{u} = \frac{1}{h_o} + \sum_j\frac{X_j}{k_j} + \frac{1}{h_i}
+\]
+\begin{conditions*}
+h_o  &  outer convection coefficient \\
+h_i  &  inner convection coefficient \\
+\end{conditions*}
+
+\end{document}
