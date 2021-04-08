@@ -46,6 +46,3 @@ Lazy? Create a [XLaunch Shortcut](https://siliconheaven.info/xlaunch-configurati
 PS: *Make sure that XLaunch is running and before calling any Linux GUI Apps on Windows Desktop environment.*  
 
 References : [1](https://openfoam.org/download/windows-10/) [2](https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242) 
-=======
-# Content has been shifted [here](https://gist.github.com/relaxxpls/74b8cb97def38cd0baabfca13462e07b).
->>>>>>> 3321946296addd66f23a173ffc648e05f5691b9b

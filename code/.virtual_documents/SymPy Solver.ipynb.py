@@ -11,6 +11,20 @@ exp = x**2
 exp
 
 
-EQ1_1 = sp.Eq()
+t = sp.symbols('t')
 
-display(EQ1_1)
+T_R = sp.symbols('T_R')
+
+Q_W = sp.Function('Q_W')(t)
+# EQ1_1 = sp.Eq(M_R * T_R.diff(t), Q_W + Q_R + Q_D - Q_F - Q_iv)
+
+display(T_R, Q_W)
+
+
+
+
+
+
+
+
+
