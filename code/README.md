@@ -1,5 +1,7 @@
 # Solving Attempt 2 - [`desmos`](https://www.desmos.com/calculator/fj9gy8l2la)
 
+**NOTE:** if your using GitHub's light mode, either [view the README here]() where $\LaTeX$ is rendered specifically for light mode or [switch to dark mode](https://github.com/settings/appearance).
+
 ## Goal 1: Find temperature of water surface, <img src="svgs/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/>
 
 Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf).
