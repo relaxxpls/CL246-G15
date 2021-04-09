@@ -1,4 +1,4 @@
-# Solving Attempt 2 - [`desmos`](https://www.desmos.com/calculator/fj9gy8l2la)
+# Solving Attempt 2 - [`notebook`](SymPy%20Solver.ipynb)
 
 **NOTE:** if your using GitHub's light mode, either [view the README here](README_light.md) where <img src="../docs/svgs_darkmode/87181ad2b235919e0785dee664166921.svg?invert_in_darkmode" align=middle width=45.69716744999999pt height=22.465723500000017pt/> is rendered specifically for light mode or [switch to dark mode](https://github.com/settings/appearance).
 
