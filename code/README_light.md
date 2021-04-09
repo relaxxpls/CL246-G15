@@ -1,4 +1,4 @@
-# Solving Attempt 2 - [`desmos`](https://www.desmos.com/calculator/fj9gy8l2la)
+# Solving Attempt 2 - [`notebook`](SymPy%20Solver.ipynb)
 
 ## Goal 1: Find temperature of water surface, <img src="../docs/svgs_lightmode/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/>
 
