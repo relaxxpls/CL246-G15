@@ -1,4 +1,6 @@
-# Without Water (Attempt 3)
+# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
+
+Find Resultant Resistance and Heat Rate
 
 ## Nomenclature
 
@@ -10,9 +12,9 @@
 * $k_a$ = thermal conductivity of air
 * $h_r$ = heat transfer coefficient for room air
 * Roof layers:
-  * **1**: Concrete
-  * **2**: Brick
-  * **3**: Lime
+  * 1: Concrete
+  * 2: Brick
+  * 3: Lime
 * $k_i$ = thermal conductivity of $i^{th}$ roof layer
 * $L_i$ = length of $i^{th}$ roof layer
 * $q_{r}$ = radiative heat transfer (per unit area)

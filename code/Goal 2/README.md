@@ -1,4 +1,6 @@
-# Without Water (Attempt 3)
+# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
+
+Find Resultant Resistance and Heat Rate
 
 ## Nomenclature
 
@@ -10,9 +12,9 @@
 * <img src="../../docs/svgs_darkmode/eb4513540706477e80b47eb048eeaa9d.svg?invert_in_darkmode" align=middle width=15.68825939999999pt height=22.831056599999986pt/> = thermal conductivity of air
 * <img src="../../docs/svgs_darkmode/f7c65c46dccd65632fc6e90e958f6b18.svg?invert_in_darkmode" align=middle width=15.928562099999992pt height=22.831056599999986pt/> = heat transfer coefficient for room air
 * Roof layers:
-  * **1**: Concrete
-  * **2**: Brick
-  * **3**: Lime
+  * 1: Concrete
+  * 2: Brick
+  * 3: Lime
 * <img src="../../docs/svgs_darkmode/ec71f47b6aee7b3cd545386b93601915.svg?invert_in_darkmode" align=middle width=13.20877634999999pt height=22.831056599999986pt/> = thermal conductivity of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> roof layer
 * <img src="../../docs/svgs_darkmode/6af2b4e795d7f62666e31c283eb02410.svg?invert_in_darkmode" align=middle width=15.838142099999992pt height=22.465723500000017pt/> = length of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> roof layer
 * <img src="../../docs/svgs_darkmode/886420e78c2c7a0eae7fc784e45bf6b8.svg?invert_in_darkmode" align=middle width=13.79576054999999pt height=14.15524440000002pt/> = radiative heat transfer (per unit area)
