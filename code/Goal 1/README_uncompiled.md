@@ -1,8 +1,8 @@
-## Goal 1: Find Temperature of Water Surface, $T_w$ - [`notebook`](water_surf_temp.ipynb)
+# Goal 1: Water Layer - [`notebook`](water_surf_temp.ipynb)
 
-Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf).
+Find Temperature of Water Surface, $T_w$
 
-### Nomenclature
+## Nomenclature
 
 * $S$ = Intensity of Solar Radiation (i.e. Solar Constant)
 * $u_o$ = water velocity
@@ -19,7 +19,7 @@ Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_therm
 * $k_w$ = thermal conductivity of water
 * $L_w$ = length of water path
 
-### Assumptions
+## Assumptions
 
 1. Steady state
 2. Water has creeping flow, i.e. water velocity $u_0 = 0$ and $\dot{m}_w=0$
@@ -28,7 +28,7 @@ Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_therm
 5. **P** on **Eq. 4** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf) means the Prandtl Number, **Pr**
 6. Characteristic length (for calculating Gr) is same as length if water $L_w$
 
-### Equations
+## Equations
 
 Upon simplifying under our assumptions, **Eq. 15** becomes:
 
@@ -66,7 +66,7 @@ $$
 \end{align}
 $$
 
-### Known Values
+## Values
 
 * $\epsilon_w = 0.95$
 * From assumptions, $u_o = 0$ and $v_o = 2.78\ m/s$
@@ -82,7 +82,7 @@ $$
 * $Re = 0$ (Compared to Gr and under Creeping Flow)
 * $k_w,\ \mu,\ \rho,\ Pr$ from **Table A.6**, taken at $T_a$
 
-#### After Substitution
+## Solving
 
 $$
 \begin{align}
@@ -97,3 +97,7 @@ $$
       &= 8.4\cdot(Gr\cdot Pr)^{1/3}
 \end{align}
 $$
+
+## References
+
+* Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf)

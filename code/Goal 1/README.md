@@ -1,8 +1,8 @@
-## Goal 1: Find Temperature of Water Surface, <img src="../../docs/svgs_darkmode/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/> - [`notebook`](water_surf_temp.ipynb)
+# Goal 1: Water Layer - [`notebook`](water_surf_temp.ipynb)
 
-Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf).
+Find Temperature of Water Surface, <img src="../../docs/svgs_darkmode/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/>
 
-### Nomenclature
+## Nomenclature
 
 * <img src="../../docs/svgs_darkmode/e257acd1ccbe7fcb654708f1a866bfe9.svg?invert_in_darkmode" align=middle width=11.027402099999989pt height=22.465723500000017pt/> = Intensity of Solar Radiation (i.e. Solar Constant)
 * <img src="../../docs/svgs_darkmode/617df29b4912189585fe69e7e29f263e.svg?invert_in_darkmode" align=middle width=15.89887529999999pt height=14.15524440000002pt/> = water velocity
@@ -19,7 +19,7 @@ Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_therm
 * <img src="../../docs/svgs_darkmode/170f61062a00c6aa774c665fdf4d5251.svg?invert_in_darkmode" align=middle width=18.37719839999999pt height=22.831056599999986pt/> = thermal conductivity of water
 * <img src="../../docs/svgs_darkmode/b534bf13756d01430237466cc980a357.svg?invert_in_darkmode" align=middle width=21.00656414999999pt height=22.465723500000017pt/> = length of water path
 
-### Assumptions
+## Assumptions
 
 1. Steady state
 2. Water has creeping flow, i.e. water velocity <img src="../../docs/svgs_darkmode/484f6a63bc9fbaa6c452cf02b00a0c70.svg?invert_in_darkmode" align=middle width=46.921573049999985pt height=21.18721440000001pt/> and <img src="../../docs/svgs_darkmode/937eda0ac640f79f11dd57bb50cf32d3.svg?invert_in_darkmode" align=middle width=55.21115324999999pt height=21.95701200000001pt/>
@@ -28,7 +28,7 @@ Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_therm
 5. **P** on **Eq. 4** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf) means the Prandtl Number, **Pr**
 6. Characteristic length (for calculating Gr) is same as length if water <img src="../../docs/svgs_darkmode/b534bf13756d01430237466cc980a357.svg?invert_in_darkmode" align=middle width=21.00656414999999pt height=22.465723500000017pt/>
 
-### Equations
+## Equations
 
 Upon simplifying under our assumptions, **Eq. 15** becomes:
 
@@ -45,7 +45,7 @@ The convection coefficients <img src="../../docs/svgs_darkmode/f7c65c46dccd65632
 
 <p align="center"><img src="../../docs/svgs_darkmode/3fb92f3bfad0e51652077652cdb57c1d.svg?invert_in_darkmode" align=middle width=324.51025365pt height=136.12450005pt/></p>
 
-### Known Values
+## Values
 
 * <img src="../../docs/svgs_darkmode/3aa9b7fa00814e793510c8689bfccac6.svg?invert_in_darkmode" align=middle width=68.45508614999999pt height=21.18721440000001pt/>
 * From assumptions, <img src="../../docs/svgs_darkmode/9b8ad8123297acea7ab148105e71298c.svg?invert_in_darkmode" align=middle width=46.85761079999999pt height=21.18721440000001pt/> and <img src="../../docs/svgs_darkmode/7efc7d974942822b0f7a1785101f1eef.svg?invert_in_darkmode" align=middle width=102.25728149999999pt height=24.65753399999998pt/>
@@ -61,6 +61,10 @@ The convection coefficients <img src="../../docs/svgs_darkmode/f7c65c46dccd65632
 * <img src="../../docs/svgs_darkmode/00a4c91798bdaa5c46e6314d6501cb4d.svg?invert_in_darkmode" align=middle width=50.39944799999999pt height=22.465723500000017pt/> (Compared to Gr and under Creeping Flow)
 * <img src="../../docs/svgs_darkmode/de717fa1002ddac7aafd527c27eb5148.svg?invert_in_darkmode" align=middle width=96.66860444999998pt height=22.831056599999986pt/> from **Table A.6**, taken at <img src="../../docs/svgs_darkmode/5bdf86f684b5b70a46fb2268c2b195b3.svg?invert_in_darkmode" align=middle width=16.736568749999993pt height=22.465723500000017pt/>
 
-#### After Substitution
+## Solving
 
 <p align="center"><img src="../../docs/svgs_darkmode/c6200ced8264338ac60e757cbac3dfa2.svg?invert_in_darkmode" align=middle width=367.6305567pt height=294.1957821pt/></p>
+
+## References
+
+* Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf)

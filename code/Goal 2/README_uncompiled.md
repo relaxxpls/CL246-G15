@@ -1,40 +1,61 @@
-## Goal 2: Find Resultant Resistance and Heat Rate - [`notebook`](heat_flux_no_water.ipynb)
+# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
 
-### Nomenclature
+Find Resultant Resistance and Heat Rate
 
-* $A$ = roof cross section area
-* $h_o$ = outside convective heat transfer coefficient
-* $h_i$ = inside convective heat transfer coefficient
-* $k_i$ = thermal conductivity of $i^{th}$ layer
-* $L_i$ = length of $i^{th}$ layer
-* Layer **1**: Concrete
-* Layer **2**: Brick
-* Layer **3**: Lime
-* $T_a$ = ambient air temperature
-* $T_r$ = room temperature
-* $v_o$ = wind velocity
+## Nomenclature
 
-### Equations
+* $Nu_L$ = Nusselt number
+* $Ra_L$ = Rayleigh number
+* $\alpha$ = Thermal diffusivity
+* $\beta$ = Coefficient of thermal expansion
+* $\nu$ = Dynamic Viscosity
 
-Total Resistance:
+## Equations
+
 $$
-R_{net} = \frac{1}{h_o} +\frac{L_1}{k_1A} + \frac{L_2}{k_2A} + \frac{L_3}{k_3A} + \frac{1}{h_i} \\
+Ra_L = \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha}
 $$
 
-Heat Flux through wall:
+$$
+\overline {Nu}_L = 0.54Ra_L^{1/4} \quad (10^4\le Ra_L\le 10^7,\ Pr \ge0.7)
+$$
+
+$$
+\overline {Nu}_L = 0.15Ra_L^{1/3} \quad (10^7\le Ra_L\le 10^{11},\ \text{all Pr})
+$$
+
+$$
+q_i = (E_{bi} - J_i)\cdot \frac{\epsilon_i\cdot A_i}{1-\epsilon_i}
+$$
+
+## Values
+
+* $g = 9.8\ m/s^2$
+* $L = 0.2\ m$ thick with,
+  * Cement = $5\ cm$
+  * Brick = $10\ cm$
+  * Lime = $5\ cm$
+* Table A.4, air ($T_f = 320K$):
+  * $\nu = 18 \cdot 10^{-6}\ m^2/s$
+  * $\alpha = 25 \cdot 10^{-6}\ m^2/s$
+  * $Pr = 0.702$
+  * $k = 27.7 \cdot 10^{-3}\ W/m\cdot K$
+* $\beta = \frac{1}{T_f} = 0.0031\ K^{-1}$
+* $\epsilon_{concrete} = 0.85,\quad \epsilon_{brick} = 0.93,\quad \epsilon_{lime} = 0.90$
+
+## Solving
+
 $$
 \begin{align}
-  q_x &= \frac{T_a - T_r}{R_{net}} \\ \\
-      &= \frac{T_a - T_r}{\frac{1}{h_o} +\frac{L_1}{k_1A} + \frac{L_2}{k_2A} + \frac{L_3}{k_3A} + \frac{1}{h_i} }
+Ra_L &= \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha} \\ \\
+     &= \frac{9.8\cdot 0.0031\cdot (T_s - T_{\infty})\cdot (0.2)^{3}}{18 \cdot 10^{-6}\cdot 25 \cdot 10^{-6}} \\ \\
+     &= 5.4 \cdot 10^5 \cdot(T_s - T_{\infty}) \\ \\
+\\
+Nu_L &= 0.15 \cdot (5.4 \cdot 10^5)^{1/3} \cdot(T_s - T_{\infty})^{1/3} \\ \\
+     &= 12.21 \cdot(T_s - T_{\infty})^{1/3} \\ \\
+\\
+\bar{h}_t &= \frac{K}{L} \cdot Nu_L \\ \\
+          &= \frac{27.7 \cdot 10^{-3}}{0.2} \cdot 12.21 \cdot (T_s - T_{\infty})^{1/3} \\ \\
+          &= 1.69 \cdot (T_s - T_{\infty})^{1/3} \\ \\
 \end{align}
 $$
-
-### Values
-
-* $h_o = 22.78\ W/m^{2\circ}C$ (corresponding to $v_o = 10.2\ km/h$)
-* $h_i = 8.4\ W/m^{2\circ}C$
-* $k_1 = 0.72\ W/m^{\circ}C,\ L_1 = 0.05\ m$
-* $k_2 = 0.71\ W/m^{\circ}C,\ L_2 = 0.10\ m$
-* $k_3 = 0.73\ W/m^{\circ}C,\ L_3 = 0.05\ m$
-* $A = 15.43\ m^2$
-* $T_a =\ ?,\ T_r =\ ?$ (ambient air and room temperature)

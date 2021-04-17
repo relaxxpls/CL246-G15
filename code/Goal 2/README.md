@@ -1,33 +1,40 @@
-## Goal 2: Find Resultant Resistance and Heat Rate - [`notebook`](heat_flux_no_water.ipynb)
+# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
 
-### Nomenclature
+Find Resultant Resistance and Heat Rate
 
-* <img src="../../docs/svgs_darkmode/53d147e7f3fe6e47ee05b88b166bd3f6.svg?invert_in_darkmode" align=middle width=12.32879834999999pt height=22.465723500000017pt/> = roof cross section area
-* <img src="../../docs/svgs_darkmode/1e49336de353e59673dcaa45492e8ad2.svg?invert_in_darkmode" align=middle width=15.95971739999999pt height=22.831056599999986pt/> = outside convective heat transfer coefficient
-* <img src="../../docs/svgs_darkmode/ddd3bc35b936d6a00e6a81cab0061f32.svg?invert_in_darkmode" align=middle width=14.12201339999999pt height=22.831056599999986pt/> = inside convective heat transfer coefficient
-* <img src="../../docs/svgs_darkmode/ec71f47b6aee7b3cd545386b93601915.svg?invert_in_darkmode" align=middle width=13.20877634999999pt height=22.831056599999986pt/> = thermal conductivity of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> layer
-* <img src="../../docs/svgs_darkmode/6af2b4e795d7f62666e31c283eb02410.svg?invert_in_darkmode" align=middle width=15.838142099999992pt height=22.465723500000017pt/> = length of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> layer
-* Layer **1**: Concrete
-* Layer **2**: Brick
-* Layer **3**: Lime
-* <img src="../../docs/svgs_darkmode/5bdf86f684b5b70a46fb2268c2b195b3.svg?invert_in_darkmode" align=middle width=16.736568749999993pt height=22.465723500000017pt/> = ambient air temperature
-* <img src="../../docs/svgs_darkmode/78543ca0738739880432659c1a7f290d.svg?invert_in_darkmode" align=middle width=16.06363439999999pt height=22.465723500000017pt/> = room temperature
-* <img src="../../docs/svgs_darkmode/87cd0788f6b51bfd6ae5cb4ac878f2ec.svg?invert_in_darkmode" align=middle width=14.45666969999999pt height=14.15524440000002pt/> = wind velocity
+## Nomenclature
 
-### Equations
+* <img src="../../docs/svgs_darkmode/b22615dd642e1ba890adf269cdc19e6e.svg?invert_in_darkmode" align=middle width=33.428566049999986pt height=22.465723500000017pt/> = Nusselt number
+* <img src="../../docs/svgs_darkmode/ebd111934a8279eb01536610b8da831b.svg?invert_in_darkmode" align=middle width=30.31594829999999pt height=22.465723500000017pt/> = Rayleigh number
+* <img src="../../docs/svgs_darkmode/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode" align=middle width=10.57650494999999pt height=14.15524440000002pt/> = Thermal diffusivity
+* <img src="../../docs/svgs_darkmode/8217ed3c32a785f0b5aad4055f432ad8.svg?invert_in_darkmode" align=middle width=10.16555099999999pt height=22.831056599999986pt/> = Coefficient of thermal expansion
+* <img src="../../docs/svgs_darkmode/b49211c7e49541e500c32b4d56d354dc.svg?invert_in_darkmode" align=middle width=9.16670204999999pt height=14.15524440000002pt/> = Dynamic Viscosity
 
-Total Resistance:
-<p align="center"><img src="../../docs/svgs_darkmode/68efb44adad1d129e687e2592ee62978.svg?invert_in_darkmode" align=middle width=269.17671165pt height=36.09514755pt/></p>
+## Equations
 
-Heat Flux through wall:
-<p align="center"><img src="../../docs/svgs_darkmode/ffb5c28fe2adcc2f9069a656dd469551.svg?invert_in_darkmode" align=middle width=236.66247pt height=111.43218735pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/2433661e00474b0d727cd3248c4457f2.svg?invert_in_darkmode" align=middle width=200.8438047pt height=35.77743345pt/></p>
 
-### Values
+<p align="center"><img src="../../docs/svgs_darkmode/c5e54bec26b85fb62c5e3cd48bed5644.svg?invert_in_darkmode" align=middle width=355.59175739999995pt height=21.99987075pt/></p>
 
-* <img src="../../docs/svgs_darkmode/93feadeda43a0e06250bbb86ab272f4a.svg?invert_in_darkmode" align=middle width=147.29007645pt height=26.76175259999998pt/> (corresponding to <img src="../../docs/svgs_darkmode/0758cbd752b8fa10c19225f72846a4ec.svg?invert_in_darkmode" align=middle width=113.09827814999998pt height=24.65753399999998pt/>)
-* <img src="../../docs/svgs_darkmode/a530b5d82c81e8a3bd60d72d94905e94.svg?invert_in_darkmode" align=middle width=129.01395705pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/0482d6b6d0a48e63b9aaf7a5fc64f5b4.svg?invert_in_darkmode" align=middle width=233.1568536pt height=24.65753399999998pt/>
-* <img src="../../docs/svgs_darkmode/966486cc53914d46fddb59504c6dd5ea.svg?invert_in_darkmode" align=middle width=233.1568536pt height=24.65753399999998pt/>
-* <img src="../../docs/svgs_darkmode/4a51d001bd5c54e619ef0db0690ba290.svg?invert_in_darkmode" align=middle width=233.1568536pt height=24.65753399999998pt/>
-* <img src="../../docs/svgs_darkmode/59fc9bb2acaf39952cf7314596396d3b.svg?invert_in_darkmode" align=middle width=98.15458124999998pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/a605f9244ff9bb731b411c434929d7ac.svg?invert_in_darkmode" align=middle width=108.41644769999998pt height=22.831056599999986pt/> (ambient air and room temperature)
+<p align="center"><img src="../../docs/svgs_darkmode/0bdab39300b98119b3936de2c752c318.svg?invert_in_darkmode" align=middle width=338.9690007pt height=21.99987075pt/></p>
+
+<p align="center"><img src="../../docs/svgs_darkmode/af5fc8cd43e7f7ffe9e5a384f256d827.svg?invert_in_darkmode" align=middle width=161.2451247pt height=36.09514755pt/></p>
+
+## Values
+
+* <img src="../../docs/svgs_darkmode/8bb3dabed5fea4bfdedd8a7997e74bed.svg?invert_in_darkmode" align=middle width=93.74241029999999pt height=26.76175259999998pt/>
+* <img src="../../docs/svgs_darkmode/7d1aa43307215d852c9cc6c2de7d14eb.svg?invert_in_darkmode" align=middle width=74.02206074999998pt height=22.465723500000017pt/> thick with,
+  * Cement = <img src="../../docs/svgs_darkmode/ca41edaf1facf152e012dc3051b8ede7.svg?invert_in_darkmode" align=middle width=35.245557599999984pt height=21.18721440000001pt/>
+  * Brick = <img src="../../docs/svgs_darkmode/6cfca9fd624cd5e4b6ab75343c772208.svg?invert_in_darkmode" align=middle width=43.46476694999999pt height=21.18721440000001pt/>
+  * Lime = <img src="../../docs/svgs_darkmode/ca41edaf1facf152e012dc3051b8ede7.svg?invert_in_darkmode" align=middle width=35.245557599999984pt height=21.18721440000001pt/>
+* Table A.4, air (<img src="../../docs/svgs_darkmode/9416b5ada5d012dd819ba0fd39351272.svg?invert_in_darkmode" align=middle width=79.8402297pt height=22.465723500000017pt/>):
+  * <img src="../../docs/svgs_darkmode/ab57350ed56c22bdbd0567edba565077.svg?invert_in_darkmode" align=middle width=136.6932831pt height=26.76175259999998pt/>
+  * <img src="../../docs/svgs_darkmode/a0536eb180a6ac09da870c4c9c02740e.svg?invert_in_darkmode" align=middle width=138.1030992pt height=26.76175259999998pt/>
+  * <img src="../../docs/svgs_darkmode/b67c20ed043746453ddd8d51de205fed.svg?invert_in_darkmode" align=middle width=80.07041954999998pt height=22.465723500000017pt/>
+  * <img src="../../docs/svgs_darkmode/01330b5637501310669802cac0680ad9.svg?invert_in_darkmode" align=middle width=177.29818755pt height=26.76175259999998pt/>
+* <img src="../../docs/svgs_darkmode/e2d20334a09c749ceb8fa028a61d79e2.svg?invert_in_darkmode" align=middle width=156.22998764999997pt height=27.77565449999998pt/>
+* <img src="../../docs/svgs_darkmode/a67ac96e7f437edbc6563dbbaf2e7c90.svg?invert_in_darkmode" align=middle width=330.4629405pt height=21.18721440000001pt/>
+
+## Solving
+
+<p align="center"><img src="../../docs/svgs_darkmode/685ac47d9c80db23b8de6dd42a0be34a.svg?invert_in_darkmode" align=middle width=292.1555571pt height=497.80054004999994pt/></p>
