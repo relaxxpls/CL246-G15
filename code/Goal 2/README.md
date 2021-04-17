@@ -77,4 +77,5 @@ Resistance net,
 
 Thus finally,
 <p align="center"><img src="../../docs/svgs_darkmode/1041d80cc030ac59861cea8a576e35d0.svg?invert_in_darkmode" align=middle width=350.75082899999995pt height=33.62942055pt/></p>
+
 Finally, solve above equation for <img src="../../docs/svgs_darkmode/27a2cc055174e7d2697e894d18356d74.svg?invert_in_darkmode" align=middle width=15.81055739999999pt height=22.465723500000017pt/> and <img src="../../docs/svgs_darkmode/ed529d3d2fadeb925283ab80c1e7e98e.svg?invert_in_darkmode" align=middle width=26.667045899999987pt height=14.15524440000002pt/> with varying <img src="../../docs/svgs_darkmode/8f23ba996b847263bdd855451a8dc3fb.svg?invert_in_darkmode" align=middle width=22.711268249999986pt height=22.465723500000017pt/>.

@@ -115,4 +115,5 @@ Thus finally,
 $$
 3.21 \cdot 10^{-7} \cdot T_\infty^4+ 1.69 \cdot (T_s - T_{\infty})^{4/3} = \frac{T_s - 300}{0.398}
 $$
+
 Finally, solve above equation for $T_s$ and $q_{net}$ with varying $T_{\infty}$.
