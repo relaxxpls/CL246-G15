@@ -1,6 +1,6 @@
 # Solving Attempt 2
 
-NOTE: If your using GitHub's light mode, [switch to dark mode](https://github.com/settings/appearance)!
+NOTE: If your using GitHub's light mode, [switch to dark mode!](https://github.com/settings/appearance)
 
 ## [Goal 1:](Goal%201/) Find temperature of water surface, <img src="../docs/svgs_darkmode/59678b5b387bf797f0373126223862f5.svg" align=middle width=19.42550939999999pt height=25.465723500000017pt/>
 
