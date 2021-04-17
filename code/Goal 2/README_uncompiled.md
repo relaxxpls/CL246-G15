@@ -32,22 +32,22 @@
 ## Equations
 
 Nu correlations,
-\begin{align}
+\begin{align*}
   \overline {Nu}_L &= 0.54Ra_L^{1/4} \quad (10^4\le Ra_L\le 10^7,\ Pr \ge0.7) \\
   \overline {Nu}_L &= 0.15Ra_L^{1/3} \quad (10^7\le Ra_L\le 10^{11},\ \text{all Pr})\\
-\end{align}
+\end{align*}
 
 $$
 Ra_L = \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha}
 $$
 
 Also,
-\begin{align}
+\begin{align*}
   h_c &= \frac{k_a}{L}\cdot Nu_L \\
   q_c &= h_c\cdot (T_s - T_{\infty}) \\
   q_r &= (E_b - J)\cdot \frac{\epsilon}{1 - \epsilon} \\ \\
   q_t &= q_c + q_r
-\end{align}
+\end{align*}
 
 Roof layers:
 $$
@@ -84,7 +84,7 @@ $$
 
 ## Solving
 
-\begin{align}
+\begin{align*}
   Ra_L &= \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha} \\ \\
        &= \frac{9.8\cdot 0.0031\cdot (T_s - T_{\infty})\cdot (0.2)^{3}}{18 \cdot 10^{-6}\cdot 25 \cdot 10^{-6}} \\ \\
        &= 5.4 \cdot 10^5 \cdot(T_s - T_{\infty}) \\
@@ -102,14 +102,14 @@ $$
        &= 3.21 \cdot 10^{-7} \cdot T_\infty^4\cdot \\ \\
    q_t &= 3.21 \cdot 10^{-7} \cdot T_\infty^4+ 1.69 \cdot (T_s - T_{\infty})^{4/3}\\
 \\
-\end{align}
+\end{align*}
 
 Resistance net,
-\begin{align}
+\begin{align*}
 R_{net} &= \frac{1}{h_r} + \sum_{i=1}^{3} \frac{L_i}{k_i} \\ \\
   &= \frac{1}{8.4} + \frac{0.05}{0.72} + \frac{0.10}{0.71} + \frac{0.05}{0.73} \\ \\
   &= 0.398\ m^2K/W \\ \\
-\end{align}
+\end{align*}
 
 Thus finally,
 $$

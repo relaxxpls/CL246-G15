@@ -32,12 +32,12 @@
 ## Equations
 
 Nu correlations,
-<p align="center"><img src="../../docs/svgs_darkmode/3b845ed456010e77a79b83abde614a64.svg?invert_in_darkmode" align=middle width=527.93281035pt height=75.5981787pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/b66b864e3818127f6225cfbfe044e5f2.svg?invert_in_darkmode" align=middle width=355.59175739999995pt height=51.66200325pt/></p>
 
 <p align="center"><img src="../../docs/svgs_darkmode/2433661e00474b0d727cd3248c4457f2.svg?invert_in_darkmode" align=middle width=200.8438047pt height=35.77743345pt/></p>
 
 Also,
-<p align="center"><img src="../../docs/svgs_darkmode/0462798f1c182fb1a4e622a2abd406f5.svg?invert_in_darkmode" align=middle width=425.7348248999999pt height=146.68349024999998pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/646f5ce1839eb53155382dbe55a315b4.svg?invert_in_darkmode" align=middle width=149.22309105pt height=145.77025154999998pt/></p>
 
 Roof layers:
 <p align="center"><img src="../../docs/svgs_darkmode/02dc4abc738b77a4685d61bf4ac142dd.svg?invert_in_darkmode" align=middle width=140.453148pt height=47.35857885pt/></p>
@@ -70,10 +70,10 @@ Thus finally,
 
 ## Solving
 
-<p align="center"><img src="../../docs/svgs_darkmode/9a87346ec4c1be976a5eb32801696001.svg?invert_in_darkmode" align=middle width=510.96064469999993pt height=721.5271288499999pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/309d7217a9bacae60b135a432b68e59d.svg?invert_in_darkmode" align=middle width=320.82551159999997pt height=672.21206085pt/></p>
 
 Resistance net,
-<p align="center"><img src="../../docs/svgs_darkmode/1ff96e7e59f62bd7d0029724b2fab636.svg?invert_in_darkmode" align=middle width=469.7770836pt height=215.3734737pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/ab8ef8f5a99ffe9edae1223e0aae79cb.svg?invert_in_darkmode" align=middle width=237.3076167pt height=166.05840405pt/></p>
 
 Thus finally,
 <p align="center"><img src="../../docs/svgs_darkmode/1041d80cc030ac59861cea8a576e35d0.svg?invert_in_darkmode" align=middle width=350.75082899999995pt height=33.62942055pt/></p>
