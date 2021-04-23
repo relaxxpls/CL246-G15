@@ -1,121 +1,97 @@
-# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
+# Goal 1: Water Layer - [`notebook`](water_surf_temp.ipynb)
 
-Find Resultant Resistance and Heat Rate
+Find Temperature of Water Surface, $T_w$
 
 ## Nomenclature
 
-* $T_a$ = ambient air temperature (outside)
-* $T_r$ = room temperature (inside)
-* $Nu_L$ = Nusselt number of air
-* $Ra_L$ = Rayleigh number of air
-* $\alpha$ = thermal diffusivity of air
-* $k_a$ = thermal conductivity of air
-* $h_r$ = heat transfer coefficient for room air
-* Roof layers:
-  * 1: Concrete
-  * 2: Brick
-  * 3: Lime
-* $k_i$ = thermal conductivity of $i^{th}$ roof layer
-* $L_i$ = length of $i^{th}$ roof layer
-* $q_{r}$ = radiative heat transfer (per unit area)
-* $q_{c}$ = convective heat transfer (per unit area)
-* $q_{t}$ = net heat transfer into the room (per unit area)
-* $\beta$ = coefficient of thermal expansion
-* $\nu$ = dynamic Viscosity
-* $E_b$ = total emissive power of a Blackbody
-* $J$ = radiosity
+* $S$ = Intensity of Solar Radiation (i.e. Solar Constant)
+* $u_o$ = water velocity
+* $v_o$ = wind velocity
+* $h_r$ = radiative heat transfer coefficient
+* $h_c$ = convective heat transfer coefficient
+* $\dot{m}_w$ = flow rate of water
+* $\epsilon_w$ = emissivity of water surface
+* $\sigma = 5.67*10^{-8}\ W/m^2K^4$ = Stefan-Boltzmann constant
+* $T_w$ = water surface temperature
+* $T_a$ = ambient air temperature
+* $r$ = relative humidity
+* $\tau_1$ = fraction of solar radiation absorbed by water
+* $k_w$ = thermal conductivity of water
+* $L_w$ = length of water path
 
 ## Assumptions
 
-* Room is maintained at constant temperature, i.e. $T_r = 27^\circ C = 300K$
-* Main source of radition is the sun (solar radation)
-* Dimensions of roof $5\ m \times 5\ m \times 0.2\ m$
+1. Steady state
+2. Water has creeping flow, i.e. water velocity $u_0 = 0$ and $\dot{m}_w=0$
+3. Gentle breeze present ($v_o = 10\ km/h$)
+4. Length of water path = 5m
+5. **P** on **Eq. 4** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf) means the Prandtl Number, **Pr**
+6. Characteristic length (for calculating Gr) is same as length if water $L_w$
 
 ## Equations
 
-Nu correlations,
+Upon simplifying under our assumptions, **Eq. 15** becomes:
+
+$$
+T_{w} = \frac{H \cdot T_{s}+h_{1} \cdot \theta_1}{h_{1}+H}
+$$
+
+with $\theta_1$ calculated at $x=0$, and:
+
 \begin{align*}
-  \overline {Nu}_L &= 0.54Ra_L^{1/4} \quad (10^4\le Ra_L\le 10^7,\ Pr \ge0.7) \\
-  \overline {Nu}_L &= 0.15Ra_L^{1/3} \quad (10^7\le Ra_L\le 10^{11},\ \text{all Pr})\\
+  H &= h_r + h_c + R_0 \cdot R_1 \\ \\
+  H_1 &= h_r + h_c + \gamma \cdot R_0 \cdot R_1 \\ \\
+  T_s &= \frac{\tau_1\cdot S + H_1\cdot T_A - R_0\cdot R_2\cdot(1-r)}{H}
 \end{align*}
 
-$$
-Ra_L = \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha}
-$$
-
-Also,
+also:
 \begin{align*}
-  h_c &= \frac{k_a}{L}\cdot Nu_L \\
-  q_c &= h_c\cdot (T_s - T_{\infty}) \\
-  q_r &= (E_b - J)\cdot \frac{\epsilon}{1 - \epsilon} \\ \\
-  q_t &= q_c + q_r
+  h_1 &= \frac{k_w}{L_w} \cdot [0.14\cdot(Gr\cdot Pr)^{1/3} + 0.644\cdot (Pr\cdot Re)^{1/3}] \\ \\
+  Gr &= \frac{g\cdot\beta\cdot(T_w-T_a)\cdot(L)^{3}}{\nu^2} \\
+  \nu &= \frac{\mu}{\rho} \\
+  \beta &= \frac{2}{T_w+T_a} \\ \\
+  Pr &= \frac{\mu\cdot c_p}{k} \\ \\
+  Re &= \frac{\rho \cdot u_o \cdot L_w}{\mu}
 \end{align*}
 
-Roof layers:
-$$
-R_{net} = \frac{1}{h_r} + \sum_{i=1}^{3} \frac{L_i}{k_i}
-$$
-Thus finally,
-$$
-q_t = \frac{T_s - T_r}{R_{net}}
-$$
+The convection coefficients $h_r$ and $h_c$ can be calculated by:
+
+\begin{align*}
+  R_0 &= 0.013 \cdot h_c \\ \\
+  h_c &= 5.678 \cdot (1 + 0.85\cdot(v_o-u_o)) \\ \\
+  h_r &= \epsilon_w\cdot\sigma\cdot \frac{(T_w+273.15)^4 - (T_a+261.15)^4}{T_w-T_a}
+\end{align*}
 
 ## Values
 
+* $\epsilon_w = 0.95$
+* From assumptions, $u_o = 0$ and $v_o = 2.78\ m/s$
+* $S = 1366\ W/m^2$
+* From [page 310](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf), we get $R_1=325\ Pa/^\circ C$ and $R_2 = -5155\ Pa$
+* $T_a \in [30,60]\ ^\circ C$
+* $\gamma=0.27$ (approx average over a day)
+* $r = 0.5$
+* $\tau_1=0.54$
+* $L_w = 5\ m$ (approx)
 * $g = 9.8\ m/s^2$
-* $L = 2.5\ m$ thick with,
-  * Cement = $5\ cm$
-  * Brick = $10\ cm$
-  * Lime = $5\ cm$
-* $K_i$, Conductivity of each layer,
-  * Cement = $0.72\ W/m^{\circ}C$
-  * Brick = $0.71\ W/m^{\circ}C$
-  * Lime = $0.73\ W/m^{\circ}C$
-* Table A.4, air ($T_f = 320K$):
-  * $\nu = 18 \cdot 10^{-6}\ m^2/s$
-  * $\alpha = 25 \cdot 10^{-6}\ m^2/s$
-  * $Pr = 0.702$
-  * $k = 27.7 \cdot 10^{-3}\ W/m\cdot K$
-* $k_a =27.7 \cdot 10^{-3}W/m^{\circ}C$
-* $h_r = 8.4 W/m^2\cdot K$
-* $\beta = \frac{1}{T_f} = 0.0031\ K^{-1}$
-* $\epsilon = \epsilon_{concrete} = 0.85$
-* $E_b = \sigma \cdot T_\infty^4 = 5.67 \cdot 10^{-8} \cdot T_\infty^4$
-* $J=0$
-* $T_r =\ 27^\circ C$ (Room Temperature)
+* $\beta = \frac{1}{T_a}$ (approx)
+* $Re = 0$ (Compared to Gr and under Creeping Flow)
+* $k_w,\ \mu,\ \rho,\ Pr$ from **Table A.6**, taken at $T_a$
 
 ## Solving
 
 \begin{align*}
-  Ra_L &= \frac{g\cdot \beta\cdot (T_s - T_{\infty})\cdot L^{3}}{\nu\cdot\alpha} \\ \\
-       &= \frac{9.8\cdot 0.0031\cdot (T_s - T_{\infty})\cdot (0.2)^{3}}{18 \cdot 10^{-6}\cdot 25 \cdot 10^{-6}} \\ \\
-       &= 5.4 \cdot 10^5 \cdot(T_s - T_{\infty}) \\
-\\
-  Nu_L &= 0.15 \cdot (5.4 \cdot 10^5)^{1/3} \cdot(T_s - T_{\infty})^{1/3} \\ \\
-       &= 12.21 \cdot(T_s - T_{\infty})^{1/3} \\
-\\
-   h_c &= \frac{K}{L} \cdot Nu_L \\ \\
-       &= \frac{27.7 \cdot 10^{-3}}{0.2} \cdot 12.21 \cdot (T_s - T_{\infty})^{1/3} \\ \\
-       &= 1.69 \cdot (T_s - T_{\infty})^{1/3} \\
-\\
-   q_c &= 1.69 \cdot (T_s - T_{\infty})^{4/3} \\
-\\
-   q_r &= (5.67 \cdot 10^{-8} \cdot T_\infty^4 - 0)\cdot \frac{0.85}{1-0.85} \\ \\
-       &= 3.21 \cdot 10^{-7} \cdot T_\infty^4\cdot \\ \\
-   q_t &= 3.21 \cdot 10^{-7} \cdot T_\infty^4+ 1.69 \cdot (T_s - T_{\infty})^{4/3}\\
-\\
+  h_c &= 5.678 \cdot (1 + 0.85 \cdot 2.78) \\
+      &= 19.1 \\
+  R_0 &= 0.013 \cdot h_c \\
+      &= 0.2483 \\
+  h_r &= 5.3865\cdot 10^{−8}\cdot \frac{(T_w+273.15)^4 - (T_a+261.15)^4}{T_w-T_a} \\
+  Gr  &= \frac{9.8\cdot\frac{1}{T_a}\cdot(T_w-T_a)\cdot(5)^{3}}{\nu^2} \\
+      &= \frac{1225}{\nu^2} \cdot \left( \frac{T_w}{T_a}-1 \right) \\
+  h_1 &= (\frac{300}{5})\cdot 0.14\cdot(Gr\cdot Pr)^{1/3}\\
+      &= 8.4\cdot(Gr\cdot Pr)^{1/3}
 \end{align*}
 
-Resistance net,
-\begin{align*}
-R_{net} &= \frac{1}{h_r} + \sum_{i=1}^{3} \frac{L_i}{k_i} \\ \\
-  &= \frac{1}{8.4} + \frac{0.05}{0.72} + \frac{0.10}{0.71} + \frac{0.05}{0.73} \\ \\
-  &= 0.398\ m^2K/W \\ \\
-\end{align*}
+## References
 
-Thus finally,
-$$
-3.21 \cdot 10^{-7} \cdot T_\infty^4+ 1.69 \cdot (T_s - T_{\infty})^{4/3} = \frac{T_s - 300}{0.398}
-$$
-
-Finally, solve above equation for $T_s$ and $q_{net}$ with varying $T_{\infty}$.
+* Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf)

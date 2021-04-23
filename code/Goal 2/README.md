@@ -1,83 +1,70 @@
-# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
+# Goal 1: Water Layer - [`notebook`](water_surf_temp.ipynb)
 
-Find Resultant Resistance and Heat Rate
+Find Temperature of Water Surface, <img src="../../docs/svgs_darkmode/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/>
 
 ## Nomenclature
 
-* <img src="../../docs/svgs_darkmode/5bdf86f684b5b70a46fb2268c2b195b3.svg?invert_in_darkmode" align=middle width=16.736568749999993pt height=22.465723500000017pt/> = ambient air temperature (outside)
-* <img src="../../docs/svgs_darkmode/78543ca0738739880432659c1a7f290d.svg?invert_in_darkmode" align=middle width=16.06363439999999pt height=22.465723500000017pt/> = room temperature (inside)
-* <img src="../../docs/svgs_darkmode/b22615dd642e1ba890adf269cdc19e6e.svg?invert_in_darkmode" align=middle width=33.428566049999986pt height=22.465723500000017pt/> = Nusselt number of air
-* <img src="../../docs/svgs_darkmode/ebd111934a8279eb01536610b8da831b.svg?invert_in_darkmode" align=middle width=30.31594829999999pt height=22.465723500000017pt/> = Rayleigh number of air
-* <img src="../../docs/svgs_darkmode/c745b9b57c145ec5577b82542b2df546.svg?invert_in_darkmode" align=middle width=10.57650494999999pt height=14.15524440000002pt/> = thermal diffusivity of air
-* <img src="../../docs/svgs_darkmode/eb4513540706477e80b47eb048eeaa9d.svg?invert_in_darkmode" align=middle width=15.68825939999999pt height=22.831056599999986pt/> = thermal conductivity of air
-* <img src="../../docs/svgs_darkmode/f7c65c46dccd65632fc6e90e958f6b18.svg?invert_in_darkmode" align=middle width=15.928562099999992pt height=22.831056599999986pt/> = heat transfer coefficient for room air
-* Roof layers:
-  * 1: Concrete
-  * 2: Brick
-  * 3: Lime
-* <img src="../../docs/svgs_darkmode/ec71f47b6aee7b3cd545386b93601915.svg?invert_in_darkmode" align=middle width=13.20877634999999pt height=22.831056599999986pt/> = thermal conductivity of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> roof layer
-* <img src="../../docs/svgs_darkmode/6af2b4e795d7f62666e31c283eb02410.svg?invert_in_darkmode" align=middle width=15.838142099999992pt height=22.465723500000017pt/> = length of <img src="../../docs/svgs_darkmode/3def24cf259215eefdd43e76525fb473.svg?invert_in_darkmode" align=middle width=18.32504519999999pt height=27.91243950000002pt/> roof layer
-* <img src="../../docs/svgs_darkmode/886420e78c2c7a0eae7fc784e45bf6b8.svg?invert_in_darkmode" align=middle width=13.79576054999999pt height=14.15524440000002pt/> = radiative heat transfer (per unit area)
-* <img src="../../docs/svgs_darkmode/7c9a374605e54760ce4ffa2f36666ca5.svg?invert_in_darkmode" align=middle width=13.21296404999999pt height=14.15524440000002pt/> = convective heat transfer (per unit area)
-* <img src="../../docs/svgs_darkmode/88101fdb8c6c5c5b9ddad575a78144b7.svg?invert_in_darkmode" align=middle width=12.30410444999999pt height=14.15524440000002pt/> = net heat transfer into the room (per unit area)
-* <img src="../../docs/svgs_darkmode/8217ed3c32a785f0b5aad4055f432ad8.svg?invert_in_darkmode" align=middle width=10.16555099999999pt height=22.831056599999986pt/> = coefficient of thermal expansion
-* <img src="../../docs/svgs_darkmode/b49211c7e49541e500c32b4d56d354dc.svg?invert_in_darkmode" align=middle width=9.16670204999999pt height=14.15524440000002pt/> = dynamic Viscosity
-* <img src="../../docs/svgs_darkmode/bf0eb1d093be7d37eb1b31df2cc15af0.svg?invert_in_darkmode" align=middle width=17.91555644999999pt height=22.465723500000017pt/> = total emissive power of a Blackbody
-* <img src="../../docs/svgs_darkmode/8eb543f68dac24748e65e2e4c5fc968c.svg?invert_in_darkmode" align=middle width=10.69635434999999pt height=22.465723500000017pt/> = radiosity
+* <img src="../../docs/svgs_darkmode/e257acd1ccbe7fcb654708f1a866bfe9.svg?invert_in_darkmode" align=middle width=11.027402099999989pt height=22.465723500000017pt/> = Intensity of Solar Radiation (i.e. Solar Constant)
+* <img src="../../docs/svgs_darkmode/617df29b4912189585fe69e7e29f263e.svg?invert_in_darkmode" align=middle width=15.89887529999999pt height=14.15524440000002pt/> = water velocity
+* <img src="../../docs/svgs_darkmode/87cd0788f6b51bfd6ae5cb4ac878f2ec.svg?invert_in_darkmode" align=middle width=14.45666969999999pt height=14.15524440000002pt/> = wind velocity
+* <img src="../../docs/svgs_darkmode/f7c65c46dccd65632fc6e90e958f6b18.svg?invert_in_darkmode" align=middle width=15.928562099999992pt height=22.831056599999986pt/> = radiative heat transfer coefficient
+* <img src="../../docs/svgs_darkmode/b68428d9419541251ddb40e003804388.svg?invert_in_darkmode" align=middle width=15.345767249999989pt height=22.831056599999986pt/> = convective heat transfer coefficient
+* <img src="../../docs/svgs_darkmode/7063f3868a0debf878856a94132de800.svg?invert_in_darkmode" align=middle width=24.252422699999993pt height=21.95701200000001pt/> = flow rate of water
+* <img src="../../docs/svgs_darkmode/195b90bdbbbb5339aa20fcd02989c4e7.svg?invert_in_darkmode" align=middle width=16.49171369999999pt height=14.15524440000002pt/> = emissivity of water surface
+* <img src="../../docs/svgs_darkmode/69157a030fdee9e530106cffd4b9c164.svg?invert_in_darkmode" align=middle width=183.91371239999998pt height=26.76175259999998pt/> = Stefan-Boltzmann constant
+* <img src="../../docs/svgs_darkmode/59678b5b387bf797f0373126223862f5.svg?invert_in_darkmode" align=middle width=19.42550939999999pt height=22.465723500000017pt/> = water surface temperature
+* <img src="../../docs/svgs_darkmode/5bdf86f684b5b70a46fb2268c2b195b3.svg?invert_in_darkmode" align=middle width=16.736568749999993pt height=22.465723500000017pt/> = ambient air temperature
+* <img src="../../docs/svgs_darkmode/89f2e0d2d24bcf44db73aab8fc03252c.svg?invert_in_darkmode" align=middle width=7.87295519999999pt height=14.15524440000002pt/> = relative humidity
+* <img src="../../docs/svgs_darkmode/d21b54e2f85fabffacc7fb3123d1d151.svg?invert_in_darkmode" align=middle width=13.73865239999999pt height=14.15524440000002pt/> = fraction of solar radiation absorbed by water
+* <img src="../../docs/svgs_darkmode/170f61062a00c6aa774c665fdf4d5251.svg?invert_in_darkmode" align=middle width=18.37719839999999pt height=22.831056599999986pt/> = thermal conductivity of water
+* <img src="../../docs/svgs_darkmode/b534bf13756d01430237466cc980a357.svg?invert_in_darkmode" align=middle width=21.00656414999999pt height=22.465723500000017pt/> = length of water path
 
 ## Assumptions
 
-* Room is maintained at constant temperature, i.e. <img src="../../docs/svgs_darkmode/63fc6e69abc8df3f03089a338dceb3aa.svg?invert_in_darkmode" align=middle width=137.43554715pt height=22.63850490000001pt/>
-* Main source of radition is the sun (solar radation)
-* Dimensions of roof <img src="../../docs/svgs_darkmode/36388ef4fce98fd7ad3e9828c4a460fb.svg?invert_in_darkmode" align=middle width=137.36307585pt height=21.18721440000001pt/>
+1. Steady state
+2. Water has creeping flow, i.e. water velocity <img src="../../docs/svgs_darkmode/484f6a63bc9fbaa6c452cf02b00a0c70.svg?invert_in_darkmode" align=middle width=46.921573049999985pt height=21.18721440000001pt/> and <img src="../../docs/svgs_darkmode/937eda0ac640f79f11dd57bb50cf32d3.svg?invert_in_darkmode" align=middle width=55.21115324999999pt height=21.95701200000001pt/>
+3. Gentle breeze present (<img src="../../docs/svgs_darkmode/4015d842dba09f9385f0e6786c10845b.svg?invert_in_darkmode" align=middle width=100.31284559999997pt height=24.65753399999998pt/>)
+4. Length of water path = 5m
+5. **P** on **Eq. 4** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf) means the Prandtl Number, **Pr**
+6. Characteristic length (for calculating Gr) is same as length if water <img src="../../docs/svgs_darkmode/b534bf13756d01430237466cc980a357.svg?invert_in_darkmode" align=middle width=21.00656414999999pt height=22.465723500000017pt/>
 
 ## Equations
 
-Nu correlations,
-<p align="center"><img src="../../docs/svgs_darkmode/b66b864e3818127f6225cfbfe044e5f2.svg?invert_in_darkmode" align=middle width=355.59175739999995pt height=51.66200325pt/></p>
+Upon simplifying under our assumptions, **Eq. 15** becomes:
 
-<p align="center"><img src="../../docs/svgs_darkmode/2433661e00474b0d727cd3248c4457f2.svg?invert_in_darkmode" align=middle width=200.8438047pt height=35.77743345pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/d4c5e96b65184f88b2b2769863985f35.svg?invert_in_darkmode" align=middle width=151.54207695pt height=36.2778141pt/></p>
 
-Also,
-<p align="center"><img src="../../docs/svgs_darkmode/646f5ce1839eb53155382dbe55a315b4.svg?invert_in_darkmode" align=middle width=149.22309105pt height=145.77025154999998pt/></p>
+with <img src="../../docs/svgs_darkmode/edcbf8dd6dd9743cceeee21183bbc3b6.svg?invert_in_darkmode" align=middle width=14.269439249999989pt height=22.831056599999986pt/> calculated at <img src="../../docs/svgs_darkmode/8436d02a042a1eec745015a5801fc1a0.svg?invert_in_darkmode" align=middle width=39.53182859999999pt height=21.18721440000001pt/>, and:
 
-Roof layers:
-<p align="center"><img src="../../docs/svgs_darkmode/02dc4abc738b77a4685d61bf4ac142dd.svg?invert_in_darkmode" align=middle width=140.453148pt height=47.35857885pt/></p>
-Thus finally,
-<p align="center"><img src="../../docs/svgs_darkmode/0bb056f69fb537532ba5a66a74757e5b.svg?invert_in_darkmode" align=middle width=90.6253458pt height=36.09514755pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/0acd9300a4741a1df5519219ff797933.svg?invert_in_darkmode" align=middle width=288.22084334999994pt height=132.60666705pt/></p>
+
+also:
+<p align="center"><img src="../../docs/svgs_darkmode/d4118a37282980903d94b67a9af63344.svg?invert_in_darkmode" align=middle width=373.11418649999996pt height=318.4908309pt/></p>
+
+The convection coefficients <img src="../../docs/svgs_darkmode/f7c65c46dccd65632fc6e90e958f6b18.svg?invert_in_darkmode" align=middle width=15.928562099999992pt height=22.831056599999986pt/> and <img src="../../docs/svgs_darkmode/b68428d9419541251ddb40e003804388.svg?invert_in_darkmode" align=middle width=15.345767249999989pt height=22.831056599999986pt/> can be calculated by:
+
+<p align="center"><img src="../../docs/svgs_darkmode/3fb92f3bfad0e51652077652cdb57c1d.svg?invert_in_darkmode" align=middle width=324.51025365pt height=136.12450005pt/></p>
 
 ## Values
 
+* <img src="../../docs/svgs_darkmode/3aa9b7fa00814e793510c8689bfccac6.svg?invert_in_darkmode" align=middle width=68.45508614999999pt height=21.18721440000001pt/>
+* From assumptions, <img src="../../docs/svgs_darkmode/9b8ad8123297acea7ab148105e71298c.svg?invert_in_darkmode" align=middle width=46.85761079999999pt height=21.18721440000001pt/> and <img src="../../docs/svgs_darkmode/7efc7d974942822b0f7a1785101f1eef.svg?invert_in_darkmode" align=middle width=102.25728149999999pt height=24.65753399999998pt/>
+* <img src="../../docs/svgs_darkmode/0e811d1830927814a2200c33ad975b0d.svg?invert_in_darkmode" align=middle width=116.48789459999998pt height=26.76175259999998pt/>
+* From [page 310](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf), we get <img src="../../docs/svgs_darkmode/f809470268ef3f91e86c966f635f3666.svg?invert_in_darkmode" align=middle width=122.13750614999998pt height=24.65753399999998pt/> and <img src="../../docs/svgs_darkmode/79888fd7a9d3c46c6e67e11d2da4edce.svg?invert_in_darkmode" align=middle width=114.44120654999999pt height=22.465723500000017pt/>
+* <img src="../../docs/svgs_darkmode/72106b5b75088f10a698aa02ba602b21.svg?invert_in_darkmode" align=middle width=112.92596534999998pt height=24.65753399999998pt/>
+* <img src="../../docs/svgs_darkmode/2adbc189b9c5f0c8240c67692ea900d6.svg?invert_in_darkmode" align=middle width=60.565343849999984pt height=21.18721440000001pt/> (approx average over a day)
+* <img src="../../docs/svgs_darkmode/5ea383d362e973dd996284f75dbf6601.svg?invert_in_darkmode" align=middle width=50.79522854999999pt height=21.18721440000001pt/>
+* <img src="../../docs/svgs_darkmode/e4d866561e8cfc5e95bc019f969b9061.svg?invert_in_darkmode" align=middle width=65.70204794999998pt height=21.18721440000001pt/>
+* <img src="../../docs/svgs_darkmode/ea7250ff10f872e209b45d805d37ee03.svg?invert_in_darkmode" align=middle width=71.87783789999999pt height=22.465723500000017pt/> (approx)
 * <img src="../../docs/svgs_darkmode/8bb3dabed5fea4bfdedd8a7997e74bed.svg?invert_in_darkmode" align=middle width=93.74241029999999pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/b351cf1982c146528afb5afadd490d61.svg?invert_in_darkmode" align=middle width=74.02206074999998pt height=22.465723500000017pt/> thick with,
-  * Cement = <img src="../../docs/svgs_darkmode/ca41edaf1facf152e012dc3051b8ede7.svg?invert_in_darkmode" align=middle width=35.245557599999984pt height=21.18721440000001pt/>
-  * Brick = <img src="../../docs/svgs_darkmode/6cfca9fd624cd5e4b6ab75343c772208.svg?invert_in_darkmode" align=middle width=43.46476694999999pt height=21.18721440000001pt/>
-  * Lime = <img src="../../docs/svgs_darkmode/ca41edaf1facf152e012dc3051b8ede7.svg?invert_in_darkmode" align=middle width=35.245557599999984pt height=21.18721440000001pt/>
-* <img src="../../docs/svgs_darkmode/655ca15e2b101fb431577b12d4442580.svg?invert_in_darkmode" align=middle width=18.61211054999999pt height=22.465723500000017pt/>, Conductivity of each layer,
-  * Cement = <img src="../../docs/svgs_darkmode/81a4b850e73574c8ddb485c89d42a5ca.svg?invert_in_darkmode" align=middle width=93.81908084999999pt height=24.65753399999998pt/>
-  * Brick = <img src="../../docs/svgs_darkmode/bdd016cacecf68269fa25b4cca0a926b.svg?invert_in_darkmode" align=middle width=93.81908084999999pt height=24.65753399999998pt/>
-  * Lime = <img src="../../docs/svgs_darkmode/a1fdd021324963918c21db9d276da4c9.svg?invert_in_darkmode" align=middle width=93.81908084999999pt height=24.65753399999998pt/>
-* Table A.4, air (<img src="../../docs/svgs_darkmode/9416b5ada5d012dd819ba0fd39351272.svg?invert_in_darkmode" align=middle width=79.8402297pt height=22.465723500000017pt/>):
-  * <img src="../../docs/svgs_darkmode/ab57350ed56c22bdbd0567edba565077.svg?invert_in_darkmode" align=middle width=136.6932831pt height=26.76175259999998pt/>
-  * <img src="../../docs/svgs_darkmode/a0536eb180a6ac09da870c4c9c02740e.svg?invert_in_darkmode" align=middle width=138.1030992pt height=26.76175259999998pt/>
-  * <img src="../../docs/svgs_darkmode/b67c20ed043746453ddd8d51de205fed.svg?invert_in_darkmode" align=middle width=80.07041954999998pt height=22.465723500000017pt/>
-  * <img src="../../docs/svgs_darkmode/01330b5637501310669802cac0680ad9.svg?invert_in_darkmode" align=middle width=177.29818755pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/59d0a2496609317436f9bf66a3efa198.svg?invert_in_darkmode" align=middle width=172.72629824999999pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/00005401715a0dc4c56c2af4841f8761.svg?invert_in_darkmode" align=middle width=132.69020984999997pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/e2d20334a09c749ceb8fa028a61d79e2.svg?invert_in_darkmode" align=middle width=156.22998764999997pt height=27.77565449999998pt/>
-* <img src="../../docs/svgs_darkmode/e123e310125ab26fb1ca77335ff5989a.svg?invert_in_darkmode" align=middle width=137.4866856pt height=21.18721440000001pt/>
-* <img src="../../docs/svgs_darkmode/69dcca8985e20d5edcbfbefbf10465c8.svg?invert_in_darkmode" align=middle width=217.72670205pt height=26.76175259999998pt/>
-* <img src="../../docs/svgs_darkmode/bb3ed15ad93881249645e6f2e0ca2927.svg?invert_in_darkmode" align=middle width=40.83319019999999pt height=22.465723500000017pt/>
-* <img src="../../docs/svgs_darkmode/482ecc1ff4a5e1af2cc3b4aa53d8e037.svg?invert_in_darkmode" align=middle width=81.20273204999998pt height=22.63850490000001pt/> (Room Temperature)
+* <img src="../../docs/svgs_darkmode/ad9ee256696ea92cbc46a08d4d49b546.svg?invert_in_darkmode" align=middle width=49.00712519999998pt height=27.77565449999998pt/> (approx)
+* <img src="../../docs/svgs_darkmode/00a4c91798bdaa5c46e6314d6501cb4d.svg?invert_in_darkmode" align=middle width=50.39944799999999pt height=22.465723500000017pt/> (Compared to Gr and under Creeping Flow)
+* <img src="../../docs/svgs_darkmode/de717fa1002ddac7aafd527c27eb5148.svg?invert_in_darkmode" align=middle width=96.66860444999998pt height=22.831056599999986pt/> from **Table A.6**, taken at <img src="../../docs/svgs_darkmode/5bdf86f684b5b70a46fb2268c2b195b3.svg?invert_in_darkmode" align=middle width=16.736568749999993pt height=22.465723500000017pt/>
 
 ## Solving
 
-<p align="center"><img src="../../docs/svgs_darkmode/309d7217a9bacae60b135a432b68e59d.svg?invert_in_darkmode" align=middle width=320.82551159999997pt height=672.21206085pt/></p>
+<p align="center"><img src="../../docs/svgs_darkmode/c6200ced8264338ac60e757cbac3dfa2.svg?invert_in_darkmode" align=middle width=367.6305567pt height=294.1957821pt/></p>
 
-Resistance net,
-<p align="center"><img src="../../docs/svgs_darkmode/ab8ef8f5a99ffe9edae1223e0aae79cb.svg?invert_in_darkmode" align=middle width=237.3076167pt height=166.05840405pt/></p>
+## References
 
-Thus finally,
-<p align="center"><img src="../../docs/svgs_darkmode/1041d80cc030ac59861cea8a576e35d0.svg?invert_in_darkmode" align=middle width=350.75082899999995pt height=33.62942055pt/></p>
-
-Finally, solve above equation for <img src="../../docs/svgs_darkmode/27a2cc055174e7d2697e894d18356d74.svg?invert_in_darkmode" align=middle width=15.81055739999999pt height=22.465723500000017pt/> and <img src="../../docs/svgs_darkmode/ed529d3d2fadeb925283ab80c1e7e98e.svg?invert_in_darkmode" align=middle width=26.667045899999987pt height=14.15524440000002pt/> with varying <img src="../../docs/svgs_darkmode/8f23ba996b847263bdd855451a8dc3fb.svg?invert_in_darkmode" align=middle width=22.711268249999986pt height=22.465723500000017pt/>.
+* Using **Eq. 15** on [page 308](../docs/papers/Experimental_validation_of_a_thermal_mod.pdf)
