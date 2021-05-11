@@ -1,0 +1,1484 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+       \date{}
+    
+
+    
+    \hypertarget{case-1-no-water-layer}{%
+\section{Case 1: No Water Layer}\label{case-1-no-water-layer}}
+
+\begin{itemize}
+\tightlist
+\item
+  Author: \textbf{Team G15}
+\item
+  Attempt: 3
+\end{itemize}
+
+    \hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
+
+    \hypertarget{to-find}{%
+\subsubsection{To find}\label{to-find}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Temperature of Roof Surface \((T_s)\)
+\item
+  Total heat flux entering the house through the roof, \((q_t)\) when no
+  water layer is present
+\end{enumerate}
+
+    \hypertarget{nomenclature}{%
+\subsubsection{Nomenclature}\label{nomenclature}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(T_s\) = roof surface temperature (outside)
+\item
+  \(T_a\) = ambient air temperature (outside)
+\item
+  \(T_r\) = room temperature (inside)
+\item
+  \(Nu_a\) = Nusselt number of air
+\item
+  \(Ra_a\) = Rayleigh number of air
+\item
+  \(Re_a\) = Reynolds number of air
+\item
+  \(Pr_a\) = Prandtl number of air
+\item
+  \(\alpha_a\) = thermal diffusivity of air
+\item
+  \(k_a\) = thermal conductivity of air
+\item
+  \(h_r\) = free convection coefficient of room air
+\item
+  \(\nu_a\) = dynamic Viscosity of air
+\item
+  Roof layers:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1: Concrete
+  \item
+    2: Brick
+  \item
+    3: Lime
+  \end{itemize}
+\item
+  \(k_i\) = thermal conductivity of \(i^{th}\) roof layer
+\item
+  \(L_i\) = length of \(i^{th}\) roof layer
+\item
+  \(q_{r}\) = radiative heat transfer (per unit area)
+\item
+  \(q_{c}\) = convective heat transfer (per unit area)
+\item
+  \(q_{t}\) = net heat transfer into the room (per unit area)
+\item
+  \(\beta\) = coefficient of thermal expansion
+\item
+  \(S\) = Intensity of Solar Radiation (i.e.~solar constant)
+\end{itemize}
+
+    \hypertarget{assumptions}{%
+\subsubsection{Assumptions}\label{assumptions}}
+
+\begin{itemize}
+\tightlist
+\item
+  Steady state with room maintained at fixed ambient temperature
+\end{itemize}
+
+    \hypertarget{equations}{%
+\subsubsection{Equations}\label{equations}}
+
+\hypertarget{energy-balance}{%
+\paragraph{Energy balance,}\label{energy-balance}}
+
+\[ q_t = q_c + q_r \]
+
+\hypertarget{radiation-heat-transfer}{%
+\paragraph{Radiation heat transfer,}\label{radiation-heat-transfer}}
+
+\begin{align*}
+  q_r &= \tau_s\cdot S - h_r \cdot (T_a - T_s) \\
+\\
+  h_r &= \epsilon_s\cdot \sigma\cdot \frac{(\overline T_s)^4 - (\overline T_a - 12)^4}{\overline T_a - \overline T_s}
+\end{align*}
+
+\hypertarget{convection-heat-transfer}{%
+\paragraph{Convection heat transfer,}\label{convection-heat-transfer}}
+
+\begin{align*}
+  q_c &= h_c\cdot (T_a - T_w) \\
+\\
+  h_c  &= \frac{k_a}{L_s}\cdot Nu_a \\
+\\
+  Nu_a &= 0.15\cdot Ra_a^{1/3} + 0.664\cdot Re_a^{1/2}\cdot Pr_a^{1/3} \\
+\\
+  Re_a &= \frac{v_a\cdot L_s}{\nu_a} \\
+\\
+  Ra_L &= \frac{g\cdot \beta\cdot (T_s - T_a)\cdot L_s^3}{\nu_a\cdot \alpha_a}
+\end{align*}
+
+\hypertarget{total-heat-transfer}{%
+\paragraph{Total heat transfer,}\label{total-heat-transfer}}
+
+\begin{align*}
+  q_t &= \frac{T_w - T_r}{R_{net}} \\
+\\
+  R_{net} &= \frac{1}{h_r} + \sum_{i=1}^{3} \frac{L_i}{k_i}
+\end{align*}
+
+    \hypertarget{properties}{%
+\subsubsection{Properties}\label{properties}}
+
+\hypertarget{outside-air}{%
+\paragraph{Outside Air}\label{outside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  Mild breeze \(v_a = 2.78\ m/s\)
+\item
+  \(T_a \in [305, 320] K\)
+\item
+  \(T_f = 320K\)
+\item
+  \(\beta = \frac{1}{T_f} = 0.0031\ K^{-1}\)
+\item
+  Table A.4, air (\(T_f\)):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\nu = 18 \cdot 10^{-6}\ m^2/s\)
+  \item
+    \(\alpha = 25 \cdot 10^{-6}\ m^2/s\)
+  \item
+    \(Pr = 0.702\)
+  \item
+    \(k = 27.7 \cdot 10^{-3}\ W/m\cdot K\)
+  \end{itemize}
+\item
+  \(S = 1366\ W/m^2\)
+\end{itemize}
+
+\hypertarget{roof}{%
+\paragraph{Roof}\label{roof}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(L_s = 5\ m\) (approx thickness of water layer)
+\item
+  \(\epsilon_s = 0.9\) (concrete surface)
+\item
+  \(\tau_s=0.9\)
+\item
+  \(t = 0.2\ m\) thick with,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cement = \(5\ cm\)
+  \item
+    Brick = \(10\ cm\)
+  \item
+    Lime = \(5\ cm\)
+  \end{itemize}
+\item
+  \(K_i\), Conductivity of each layer,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cement = \(0.72\ W/m\cdot K\)
+  \item
+    Brick = \(0.71\ W/m\cdot K\)
+  \item
+    Lime = \(0.73\ W/m\cdot K\)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{inside-air}{%
+\paragraph{Inside air}\label{inside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(T_r = 300K\) (Room Temperature)
+\item
+  \(h_r = 8.4\ W/m^2\cdot K\)
+\end{itemize}
+
+    \hypertarget{tools-used}{%
+\subsubsection{Tools used}\label{tools-used}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Python}
+\item
+  \textbf{SymPy} for creating symbolic equations and solving them
+\item
+  \textbf{NumPy}
+\item
+  \textbf{Matplotlib} for plotting results
+\end{itemize}
+
+    \hypertarget{solving-python-code}{%
+\subsection{Solving (Python Code)}\label{solving-python-code}}
+
+    \hypertarget{initialize-values}{%
+\subsubsection{Initialize Values}\label{initialize-values}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\PY{k+kn}{import} \PY{n+nn}{sympy} \PY{k}{as} \PY{n+nn}{sp}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+
+\PY{c+c1}{\PYZsh{} Initialize matplotlib}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{usetex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Unnecessary}
+\PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grid.color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}C0C0C0}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{outside-air}{%
+\paragraph{Outside Air}\label{outside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  Table A.4 used (from reference \#2)
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{v\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{2.78} \PY{c+c1}{\PYZsh{} Velocity (m / s)}
+
+\PY{c+c1}{\PYZsh{} Temperatures}
+\PY{n}{T\PYZus{}f} \PY{o}{=} \PY{l+m+mf}{320.0} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{T\PYZus{}f} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{T\PYZus{}a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{305.0}\PY{p}{,} \PY{l+m+mf}{310.0}\PY{p}{,} \PY{l+m+mf}{315.0}\PY{p}{,} \PY{l+m+mf}{320.0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{=} \PY{l+m+mi}{273} \PY{o}{+} \PY{l+m+mi}{37} \PY{c+c1}{\PYZsh{} (K)}
+
+\PY{c+c1}{\PYZsh{} Universal Constants}
+\PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{5.67e\PYZhy{}8} \PY{c+c1}{\PYZsh{} Stefan Boltzmann constant (W / m\PYZca{}2 * K\PYZca{}4)}
+\PY{n}{g} \PY{o}{=} \PY{l+m+mf}{9.8} \PY{c+c1}{\PYZsh{} (m / s\PYZca{}2)}
+\PY{n}{S} \PY{o}{=} \PY{l+m+mi}{1366} \PY{c+c1}{\PYZsh{} Solar constant}
+
+\PY{c+c1}{\PYZsh{} Table A.6, air @ T = T\PYZus{}f}
+\PY{n}{nu\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{18e\PYZhy{}6} \PY{c+c1}{\PYZsh{} dynamic visosity (m\PYZca{}2 / s)}
+\PY{n}{alpha\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{25e\PYZhy{}6} \PY{c+c1}{\PYZsh{} (m\PYZca{}2 / s)}
+\PY{n}{k\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{27.7e\PYZhy{}3} \PY{c+c1}{\PYZsh{} thermal conductivity (W / m * K)}
+\PY{n}{Pr\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{0.702}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{roof-layers}{%
+\paragraph{Roof Layers}\label{roof-layers}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Temperatures}
+\PY{n}{T\PYZus{}s} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Roof surface temp (K)}
+\PY{n}{T\PYZus{}s\PYZus{}avg} \PY{o}{=} \PY{l+m+mf}{273.0} \PY{o}{+} \PY{l+m+mf}{35.0} \PY{c+c1}{\PYZsh{} (K)}
+
+\PY{c+c1}{\PYZsh{} Surface}
+\PY{n}{L\PYZus{}s} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} Dimensions (m)}
+\PY{n}{tau\PYZus{}s} \PY{o}{=} \PY{l+m+mf}{0.9} \PY{c+c1}{\PYZsh{} Roof\PYZsq{}s solar absorbtivity}
+\PY{n}{epsilon\PYZus{}s} \PY{o}{=} \PY{l+m+mf}{0.9} \PY{c+c1}{\PYZsh{} Emissivity of roof surface (concrete)}
+
+\PY{c+c1}{\PYZsh{} Layer 1: Concrete}
+\PY{n}{k\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{0.72} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{} (m)}
+
+\PY{c+c1}{\PYZsh{} Layer 2: Brick}
+\PY{n}{k\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{0.71} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{0.10} \PY{c+c1}{\PYZsh{} (m)}
+
+\PY{c+c1}{\PYZsh{} Layer 3: Lime}
+\PY{n}{k\PYZus{}3} \PY{o}{=} \PY{l+m+mf}{0.73} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}3} \PY{o}{=} \PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{} (m)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{inside-air}{%
+\paragraph{Inside Air}\label{inside-air}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}r} \PY{o}{=} \PY{l+m+mf}{8.4} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2 * K)}
+\PY{n}{T\PYZus{}r} \PY{o}{=} \PY{l+m+mi}{300} \PY{c+c1}{\PYZsh{} (K)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{equations}{%
+\subsubsection{Equations}\label{equations}}
+
+    \hypertarget{radiation-heat}{%
+\paragraph{Radiation Heat}\label{radiation-heat}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}r} \PY{o}{=} \PY{n}{epsilon\PYZus{}s} \PY{o}{*} \PY{n}{sigma} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}s\PYZus{}avg}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{\PYZhy{}} \PY{l+m+mi}{12}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}s\PYZus{}avg}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2 * K)}
+\PY{n}{q\PYZus{}r} \PY{o}{=} \PY{n}{tau\PYZus{}s} \PY{o}{*} \PY{n}{S} \PY{o}{\PYZhy{}} \PY{n}{h\PYZus{}r} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}s}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}s = 314K}
+\PY{n}{q\PYZus{}r\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}r}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}r = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}r\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_r = 1343.00 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{convection-heat}{%
+\paragraph{Convection Heat}\label{convection-heat}}
+
+\begin{itemize}
+\tightlist
+\item
+  From below analysis, we can neglect free convection in comparison to
+  forced convection
+\end{itemize}
+
+    \hypertarget{free-convection}{%
+\subparagraph{Free Convection}\label{free-convection}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Ra\PYZus{}a} \PY{o}{=} \PY{p}{(}\PY{n}{g} \PY{o}{*} \PY{n}{beta} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}s} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}a}\PY{p}{)} \PY{o}{*} \PY{n}{L\PYZus{}s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{nu\PYZus{}a} \PY{o}{*} \PY{n}{alpha\PYZus{}a}\PY{p}{)}
+\PY{n}{Nu\PYZus{}a\PYZus{}fr} \PY{o}{=} \PY{l+m+mf}{0.15} \PY{o}{*} \PY{n}{Ra\PYZus{}a}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}
+\PY{n}{h\PYZus{}c\PYZus{}fr} \PY{o}{=} \PY{n}{k\PYZus{}a} \PY{o}{/} \PY{n}{L\PYZus{}s} \PY{o}{*} \PY{n}{Nu\PYZus{}a\PYZus{}fr}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}s = 314K}
+\PY{n}{h\PYZus{}c\PYZus{}fr\PYZus{}test} \PY{o}{=} \PY{n}{h\PYZus{}c\PYZus{}fr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of free convection coefficient = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/K*m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{h\PYZus{}c\PYZus{}fr\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of free convection coefficient = 2.69 W/K*m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{forced-convection}{%
+\subparagraph{Forced Convection}\label{forced-convection}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{Re\PYZus{}a} \PY{o}{=} \PY{n}{v\PYZus{}a} \PY{o}{*} \PY{n}{L\PYZus{}s} \PY{o}{/} \PY{n}{nu\PYZus{}a}
+\PY{n}{Nu\PYZus{}a\PYZus{}fo} \PY{o}{=} \PY{l+m+mf}{0.664} \PY{o}{*} \PY{n}{Re\PYZus{}a}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{Pr\PYZus{}a}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}
+\PY{n}{h\PYZus{}c\PYZus{}fo} \PY{o}{=} \PY{n}{k\PYZus{}a} \PY{o}{/} \PY{n}{L\PYZus{}s} \PY{o}{*} \PY{n}{Nu\PYZus{}a\PYZus{}fo}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}s = 314K}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of forced convection coefficient = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/K*m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{h\PYZus{}c\PYZus{}fo}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of forced convection coefficient = 332.36 W/K*m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{total-convection}{%
+\subparagraph{Total Convection}\label{total-convection}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}c} \PY{o}{=} \PY{n}{h\PYZus{}c\PYZus{}fo} \PY{c+c1}{\PYZsh{} Neglicting free convection}
+\PY{n}{q\PYZus{}c} \PY{o}{=} \PY{n}{h\PYZus{}c} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}s}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}s = 314K}
+\PY{n}{q\PYZus{}c\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}c = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}c\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_c = -1329.43 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{total-heat}{%
+\paragraph{Total Heat:}\label{total-heat}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{R} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h\PYZus{}r} \PY{o}{+} \PY{n}{L\PYZus{}1}\PY{o}{/}\PY{n}{k\PYZus{}1} \PY{o}{+} \PY{n}{L\PYZus{}2}\PY{o}{/}\PY{n}{k\PYZus{}2} \PY{o}{+} \PY{n}{L\PYZus{}3}\PY{o}{/}\PY{n}{k\PYZus{}3} \PY{c+c1}{\PYZsh{} (m\PYZca{}2 * K / W)}
+
+\PY{n}{q\PYZus{}t} \PY{o}{=} \PY{p}{(}\PY{n}{T\PYZus{}s} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}r}\PY{p}{)} \PY{o}{/} \PY{n}{R} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}s = 314K}
+\PY{n}{q\PYZus{}t\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}t}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}s}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}t = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}t\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_t = 44.59 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{solving}{%
+\subsubsection{Solving}\label{solving}}
+
+\begin{align*}
+  q_c + q_r &= q_t
+\\
+  \therefore\hspace{3pt} q_c + q_r - q_t &= 0
+\end{align*}
+
+    \hypertarget{calculate-t_s}{%
+\paragraph{\texorpdfstring{Calculate
+\(T_s\)}{Calculate T\_s}}\label{calculate-t_s}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{eq} \PY{o}{=} \PY{n}{q\PYZus{}c} \PY{o}{+} \PY{n}{q\PYZus{}r} \PY{o}{\PYZhy{}} \PY{n}{q\PYZus{}t}
+
+\PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{eq}\PY{p}{)}
+\PY{n}{T\PYZus{}s\PYZus{}calc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{object}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{T\PYZus{}s\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{eq}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}s}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}s = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K for T\PYZus{}a = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{T\PYZus{}s\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+T\_s = 309.0 K for T\_a = 305.0 K
+T\_s = 313.9 K for T\_a = 310.0 K
+T\_s = 318.9 K for T\_a = 315.0 K
+T\_s = 323.8 K for T\_a = 320.0 K
+    \end{Verbatim}
+
+    \hypertarget{calculate-q_t}{%
+\paragraph{\texorpdfstring{Calculate
+\(q_t\)}{Calculate q\_t}}\label{calculate-q_t}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{object}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{q\PYZus{}t}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}s}\PY{p}{,} \PY{n}{T\PYZus{}s\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Heat entering = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ W/m\PYZca{}2 for T\PYZus{}a = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Heat entering = 28.5 W/m\^{}2 for T\_a = 305.0 K
+Heat entering = 44.3 W/m\^{}2 for T\_a = 310.0 K
+Heat entering = 60.0 W/m\^{}2 for T\_a = 315.0 K
+Heat entering = 75.8 W/m\^{}2 for T\_a = 320.0 K
+    \end{Verbatim}
+
+    \hypertarget{plot}{%
+\subsubsection{Plot}\label{plot}}
+
+\begin{itemize}
+\tightlist
+\item
+  Total Heat Flux Entering (\(q_t\)) vs Outside Air Temp (\(T_a\))
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{make\PYZus{}plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{xlabel}\PY{p}{,} \PY{n}{ylabel}\PY{p}{,} \PY{n}{title}\PY{p}{)}\PY{p}{:}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}1F77B4cc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{n}{xlabel}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{n}{ylabel}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\PY{n}{make\PYZus{}plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{T\PYZus{}a}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}1}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}T\PYZus{}a\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}q\PYZus{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+          \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Heat Flux Entering (\PYZdl{}q\PYZus{}t\PYZdl{}) vs Outside Air Temp (\PYZdl{}T\PYZus{}a\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{case-2-water-layer}{%
+\section{Case 2: Water Layer}\label{case-2-water-layer}}
+
+\begin{itemize}
+\tightlist
+\item
+  Author: \textbf{Team G15}
+\item
+  Attempt: 3
+\end{itemize}
+
+    \hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
+
+    \hypertarget{to-find}{%
+\subsubsection{To find}\label{to-find}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Temperature of Water Surface \((T_w)\)
+\item
+  Total heat flux entering the house through the roof, \((q_t)\) when a
+  water layer is present
+\end{enumerate}
+
+    \hypertarget{nomenclature}{%
+\subsubsection{Nomenclature}\label{nomenclature}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(S\) = Intensity of Solar Radiation (i.e.~solar constant)
+\item
+  \(v_w\) = water velocity
+\item
+  \(v_a\) = wind velocity
+\item
+  \(\epsilon_w\) = emissivity of water surface
+\item
+  \(\sigma\) = Stefan-Boltzmann constant \((5.67*10^{-8}\ W/m^2K^4)\)
+\item
+  \(T_r\) = room temperature (inside)
+\item
+  \(T_w\) = water surface temperature (outside)
+\item
+  \(T_a\) = ambient air temperature (outside)
+\item
+  \(\overline T_w\) = average water surface temperature (outside)
+\item
+  \(\overline T_a\) = average air temperature (outside)
+\item
+  \(\tau_w\) = fraction of solar radiation absorbed by water
+\item
+  \(k_w\) = thermal conductivity of water
+\item
+  \(L_w\) = length of water layer
+\item
+  \(h_w\) = convection coefficient of water layer
+\item
+  \(h_r\) = radiative heat transfer coefficient
+\item
+  \(h_c\) = convective heat transfer coefficient
+\item
+  \(h_e\) = evaporative heat transfer coefficient
+\end{itemize}
+
+    \hypertarget{assumptions}{%
+\subsubsection{Assumptions}\label{assumptions}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Steady state with room maintained at fixed ambient temperature
+\item
+  Water is still (\(v_w = 0\)) but gentle breeze is present
+  (\(v_a = 10\ km/h\))
+\item
+  Dry Surroundings
+\end{enumerate}
+
+    \hypertarget{equations}{%
+\subsubsection{Equations}\label{equations}}
+
+\hypertarget{energy-balance}{%
+\paragraph{Energy balance,}\label{energy-balance}}
+
+\[ q_t = q_c + q_r - q_e \]
+
+\hypertarget{radiation-heat-transfer}{%
+\paragraph{Radiation heat transfer,}\label{radiation-heat-transfer}}
+
+\begin{align*}
+  q_r &= \tau_w\cdot S - h_r \cdot (T_a - T_w) \\
+\\
+  h_r &= \epsilon_w\cdot \sigma\cdot \frac{(\overline T_w)^4 - (\overline T_a - 12)^4}{\overline T_a - \overline T_w}
+\end{align*}
+
+\hypertarget{convection-heat-transfer}{%
+\paragraph{Convection heat transfer,}\label{convection-heat-transfer}}
+
+\begin{align*}
+  q_c &= h_c\cdot (T_a - T_w) \\
+\\
+  h_c &= 5.678 \cdot (1 + 0.85\cdot(v_a - v_w))
+\end{align*}
+
+\hypertarget{evaporative-heat-transfer}{%
+\paragraph{Evaporative heat transfer,}\label{evaporative-heat-transfer}}
+
+\begin{align*}
+  q_e &= 0.013\cdot h_c\cdot (p(\overline T_w) - \gamma\cdot p(\overline T_a)) \\
+\\
+  p(T) &= R_1\cdot T + R_2
+\end{align*}
+
+\hypertarget{total-heat-transfer}{%
+\paragraph{Total heat transfer,}\label{total-heat-transfer}}
+
+\begin{align*}
+  q_t &= \frac{T_w - T_r}{R_{net}} \\
+\\
+  R_{net} &= \frac{1}{h_r} + \sum_{i=1}^{3} \frac{L_i}{k_i} + \frac{1}{h_{w}} \\
+\\
+  h_w &= \frac{k_w}{L_w}\cdot (0.14\cdot(Gr\cdot Pr)^{1/3} + 0.644\cdot (Pr\cdot Re)^{1/3}) \\
+\\
+  Gr &= \frac{g\cdot\beta\cdot(T_w-T_a)\cdot(L_w)^{3}}{\nu^2}
+\end{align*}
+
+    \hypertarget{properties}{%
+\subsubsection{Properties}\label{properties}}
+
+\hypertarget{outside-air}{%
+\paragraph{Outside Air}\label{outside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  Mild breeze \(v_a = 2.78\ m/s\)
+\item
+  \(T_a \in [305, 320] K\)
+\item
+  \(T_f = 320K\)
+\item
+  \(\beta = \frac{1}{T_f} = 0.0031\ K^{-1}\)
+\item
+  Table A.4, air (\(T_f\)):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\nu = 18 \cdot 10^{-6}\ m^2/s\)
+  \item
+    \(\alpha = 25 \cdot 10^{-6}\ m^2/s\)
+  \item
+    \(Pr = 0.702\)
+  \item
+    \(k = 27.7 \cdot 10^{-3}\ W/m\cdot K\)
+  \end{itemize}
+\item
+  \(S = 1366\ W/m^2\)
+\item
+  \(R_1=325\ Pa/^\circ C\) and \(R_2 = -5155\ Pa\) (\emph{from
+  reference} \textbf{\#1})
+\item
+  \(\gamma=0.27\) (approx average over a day)
+\end{itemize}
+
+\hypertarget{water-layer}{%
+\paragraph{Water layer}\label{water-layer}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(L_w = 0.1\ m\) (approx thickness of water layer)
+\item
+  Table A.6, water (\(T_w\)):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\nu = 18 \cdot 10^{-6}\ m^2/s\)
+  \end{itemize}
+\item
+  Still water \(v_w = 0\)
+\item
+  \(\epsilon_w = 0.95\)
+\item
+  \(\tau_w=0.6\)
+\end{itemize}
+
+\hypertarget{roof}{%
+\paragraph{Roof}\label{roof}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(t = 0.2\ m\) thick with,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cement = \(5\ cm\)
+  \item
+    Brick = \(10\ cm\)
+  \item
+    Lime = \(5\ cm\)
+  \end{itemize}
+\item
+  \(K_i\), Conductivity of each layer,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cement = \(0.72\ W/m\cdot K\)
+  \item
+    Brick = \(0.71\ W/m\cdot K\)
+  \item
+    Lime = \(0.73\ W/m\cdot K\)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{inside-air}{%
+\paragraph{Inside air}\label{inside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(T_r = 300K\) (Room Temperature)
+\item
+  \(h_r = 8.4\ W/m^2\cdot K\)
+\end{itemize}
+
+    \hypertarget{tools-used}{%
+\subsubsection{Tools used}\label{tools-used}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Python}
+\item
+  \textbf{SymPy} for creating symbolic equations and solving them
+\item
+  \textbf{NumPy}
+\item
+  \textbf{Matplotlib} for plotting results
+\end{itemize}
+
+    \hypertarget{solving-python-code}{%
+\subsection{Solving (Python Code)}\label{solving-python-code}}
+
+    \hypertarget{initialize-values}{%
+\subsubsection{Initialize Values}\label{initialize-values}}
+
+    \hypertarget{outside-air}{%
+\paragraph{Outside Air}\label{outside-air}}
+
+\begin{itemize}
+\tightlist
+\item
+  Saturation pressure of water p = R\_1*T + R\_2
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{v\PYZus{}a} \PY{o}{=} \PY{l+m+mf}{2.78} \PY{c+c1}{\PYZsh{} Velocity (m / s)}
+
+\PY{c+c1}{\PYZsh{} Temperatures}
+\PY{n}{T\PYZus{}f} \PY{o}{=} \PY{l+m+mi}{320} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{T\PYZus{}f} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{T\PYZus{}a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{305.0}\PY{p}{,} \PY{l+m+mf}{310.0}\PY{p}{,} \PY{l+m+mf}{315.0}\PY{p}{,} \PY{l+m+mf}{320.0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{=} \PY{l+m+mi}{273} \PY{o}{+} \PY{l+m+mi}{37} \PY{c+c1}{\PYZsh{} (K)}
+
+\PY{c+c1}{\PYZsh{} Constants}
+\PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{5.67e\PYZhy{}8} \PY{c+c1}{\PYZsh{} Stefan Boltzmann constant (W / m\PYZca{}2 * K\PYZca{}4)}
+\PY{n}{g} \PY{o}{=} \PY{l+m+mf}{9.8} \PY{c+c1}{\PYZsh{} (m / s\PYZca{}2)}
+\PY{n}{R\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{325} \PY{c+c1}{\PYZsh{} (N / m\PYZca{}2 °C)}
+\PY{n}{R\PYZus{}2} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5155} \PY{c+c1}{\PYZsh{} (N / m\PYZca{}2)}
+\PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{0.27}
+\PY{n}{S} \PY{o}{=} \PY{l+m+mi}{1366} \PY{c+c1}{\PYZsh{} Solar constant}
+
+\PY{k}{def} \PY{n+nf}{p}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Saturation pressure of water as a function of temperature (N / m\PYZca{}2)}
+    \PY{k}{return} \PY{n}{R\PYZus{}1} \PY{o}{*} \PY{p}{(}\PY{n}{T}\PY{o}{\PYZhy{}}\PY{l+m+mi}{273}\PY{p}{)} \PY{o}{+} \PY{n}{R\PYZus{}2}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{water-layer}{%
+\paragraph{Water Layer}\label{water-layer}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{v\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Velocity (m / s)}
+\PY{n}{L\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} Dimensions (m)}
+
+\PY{c+c1}{\PYZsh{} Temperatures}
+\PY{n}{T\PYZus{}w} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} (K)}
+\PY{n}{T\PYZus{}w\PYZus{}avg} \PY{o}{=} \PY{l+m+mi}{273} \PY{o}{+} \PY{l+m+mi}{32} \PY{c+c1}{\PYZsh{} (K)}
+
+\PY{c+c1}{\PYZsh{} Constants}
+\PY{n}{epsilon\PYZus{}w} \PY{o}{=} \PY{l+m+mf}{0.95} \PY{c+c1}{\PYZsh{} Emissivity of water surface}
+\PY{n}{tau\PYZus{}w} \PY{o}{=} \PY{l+m+mf}{0.6} \PY{c+c1}{\PYZsh{} Water\PYZsq{}s solar absorbtivity}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  Table A.6 used (\emph{from reference} \textbf{\#2})
+\item
+  Upon analysing the below data, we can approximate \(h_w\) to
+  \(950\ W/m^2\)
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{rho\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{990} \PY{c+c1}{\PYZsh{} density (kg / m\PYZca{}3)}
+\PY{n}{k\PYZus{}w} \PY{o}{=} \PY{l+m+mf}{0.63} \PY{c+c1}{\PYZsh{} thermal conductivity (W / m * K)}
+\PY{n}{mu\PYZus{}w} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{769}\PY{p}{,} \PY{l+m+mi}{695}\PY{p}{,} \PY{l+m+mi}{631}\PY{p}{,} \PY{l+m+mi}{577}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} viscosity (N * s / m\PYZca{}2)}
+\PY{n}{nu\PYZus{}w} \PY{o}{=} \PY{n}{mu\PYZus{}w} \PY{o}{/} \PY{n}{rho\PYZus{}w} \PY{c+c1}{\PYZsh{} dynamic visosity (m\PYZca{}2 / s)}
+
+\PY{n}{Pr\PYZus{}w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{5.20}\PY{p}{,} \PY{l+m+mf}{4.62}\PY{p}{,} \PY{l+m+mf}{4.16}\PY{p}{,} \PY{l+m+mf}{3.77}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Prandtl number}
+\PY{n}{Re\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Reynolds number, still water}
+\PY{n}{Gr\PYZus{}w} \PY{o}{=} \PY{n}{g} \PY{o}{*} \PY{n}{beta} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}w}\PY{p}{)} \PY{o}{*} \PY{n}{L\PYZus{}w}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{/} \PY{n}{nu\PYZus{}w}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} Grashof number}
+
+\PY{c+c1}{\PYZsh{} Water free convection coeffecient}
+\PY{n}{h\PYZus{}w} \PY{o}{=} \PY{p}{(}\PY{n}{k\PYZus{}w}\PY{o}{/}\PY{n}{L\PYZus{}w}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mf}{0.14} \PY{o}{*} \PY{p}{(}\PY{n}{Gr\PYZus{}w}\PY{o}{*}\PY{n}{Pr\PYZus{}w}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.644} \PY{o}{*} \PY{p}{(}\PY{n}{Pr\PYZus{}w}\PY{o}{*}\PY{n}{Re\PYZus{}w}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}w = 306K}
+\PY{n}{h\PYZus{}w\PYZus{}test} \PY{o}{=} \PY{n}{h\PYZus{}w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}w}\PY{p}{,} \PY{l+m+mi}{306}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate min value of h\PYZus{}w = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/K*m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{h\PYZus{}w\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate min value of h\_w = 923.62 W/K*m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{roof-layers}{%
+\paragraph{Roof Layers}\label{roof-layers}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Layer 1: Concrete}
+\PY{n}{k\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{0.72} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{} (m)}
+
+\PY{c+c1}{\PYZsh{} Layer 2: Brick}
+\PY{n}{k\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{0.71} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{0.10} \PY{c+c1}{\PYZsh{} (m)}
+
+\PY{c+c1}{\PYZsh{} Layer 3: Lime}
+\PY{n}{k\PYZus{}3} \PY{o}{=} \PY{l+m+mf}{0.73} \PY{c+c1}{\PYZsh{} (W / m * K)}
+\PY{n}{L\PYZus{}3} \PY{o}{=} \PY{l+m+mf}{0.05} \PY{c+c1}{\PYZsh{} (m)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{inside-air}{%
+\paragraph{Inside Air}\label{inside-air}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}r} \PY{o}{=} \PY{l+m+mf}{8.4} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2 * K)}
+\PY{n}{T\PYZus{}r} \PY{o}{=} \PY{l+m+mi}{300} \PY{c+c1}{\PYZsh{} (K)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{equations}{%
+\subsubsection{Equations}\label{equations}}
+
+    \hypertarget{radiation-heat}{%
+\paragraph{Radiation Heat}\label{radiation-heat}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}r} \PY{o}{=} \PY{n}{epsilon\PYZus{}w} \PY{o}{*} \PY{n}{sigma} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}w\PYZus{}avg}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{\PYZhy{}} \PY{l+m+mi}{12}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{T\PYZus{}a\PYZus{}avg} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}w\PYZus{}avg}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2 * K)}
+\PY{n}{q\PYZus{}r} \PY{o}{=} \PY{n}{tau\PYZus{}w} \PY{o}{*} \PY{n}{S} \PY{o}{\PYZhy{}} \PY{n}{h\PYZus{}r} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}w}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}w = 306K}
+\PY{n}{q\PYZus{}r\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}r}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}w}\PY{p}{,} \PY{l+m+mi}{306}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}r = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}r\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_r = 786.53 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{convection-heat}{%
+\paragraph{Convection Heat}\label{convection-heat}}
+
+\begin{itemize}
+\tightlist
+\item
+  Forced convection and free convection both have been used
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}c} \PY{o}{=} \PY{l+m+mf}{5.678} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mf}{0.85} \PY{o}{*} \PY{p}{(}\PY{n}{v\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{v\PYZus{}w}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}c = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/K*m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{h\PYZus{}c}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{q\PYZus{}c} \PY{o}{=} \PY{n}{h\PYZus{}c} \PY{o}{*} \PY{p}{(}\PY{n}{T\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}w}\PY{p}{)} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}w = 306K}
+\PY{n}{q\PYZus{}c\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}w}\PY{p}{,} \PY{l+m+mi}{306}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}c = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}c\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+h\_c = 19.10 W/K*m\^{}2
+Approximate value of q\_c = 76.38 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{evaporation-heat}{%
+\paragraph{Evaporation Heat:}\label{evaporation-heat}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{q\PYZus{}e} \PY{o}{=} \PY{l+m+mf}{0.013} \PY{o}{*} \PY{n}{h\PYZus{}c} \PY{o}{*} \PY{p}{(}\PY{n}{p}\PY{p}{(}\PY{n}{T\PYZus{}w\PYZus{}avg}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{gamma} \PY{o}{*} \PY{n}{p}\PY{p}{(}\PY{n}{T\PYZus{}a\PYZus{}avg}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} function p defined above, (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}w = 306K}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}e = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}e}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_e = 841.55
+    \end{Verbatim}
+
+    \hypertarget{total-heat}{%
+\paragraph{Total Heat:}\label{total-heat}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{22}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{h\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{1200} \PY{c+c1}{\PYZsh{} from above approximation (W / m\PYZca{}2 * K)}
+\PY{n}{R} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h\PYZus{}r} \PY{o}{+} \PY{n}{L\PYZus{}1}\PY{o}{/}\PY{n}{k\PYZus{}1} \PY{o}{+} \PY{n}{L\PYZus{}2}\PY{o}{/}\PY{n}{k\PYZus{}2} \PY{o}{+} \PY{n}{L\PYZus{}3}\PY{o}{/}\PY{n}{k\PYZus{}3} \PY{o}{+} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h\PYZus{}w} \PY{c+c1}{\PYZsh{} (m\PYZca{}2 * K / W)}
+
+\PY{n}{q\PYZus{}t} \PY{o}{=} \PY{p}{(}\PY{n}{T\PYZus{}w} \PY{o}{\PYZhy{}} \PY{n}{T\PYZus{}r}\PY{p}{)} \PY{o}{/} \PY{n}{R} \PY{c+c1}{\PYZsh{} (W / m\PYZca{}2)}
+
+\PY{c+c1}{\PYZsh{} Example at T\PYZus{}a = 310K and T\PYZus{}w = 306K}
+\PY{n}{q\PYZus{}t\PYZus{}test} \PY{o}{=} \PY{n}{q\PYZus{}t}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}w}\PY{p}{,} \PY{l+m+mi}{306}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Approximate value of q\PYZus{}t = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ W/m\PYZca{}2}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}t\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Approximate value of q\_t = 14.98 W/m\^{}2
+    \end{Verbatim}
+
+    \hypertarget{solving}{%
+\subsubsection{Solving}\label{solving}}
+
+\begin{align*}
+  q_c + q_r - q_e &= q_t
+\\
+  \therefore\hspace{3pt} q_c + q_r - q_e - q_t &= 0
+\end{align*}
+
+    \hypertarget{calculate-t_w}{%
+\paragraph{\texorpdfstring{Calculate
+\(T_w\)}{Calculate T\_w}}\label{calculate-t_w}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{eq} \PY{o}{=} \PY{n}{q\PYZus{}c} \PY{o}{+} \PY{n}{q\PYZus{}r} \PY{o}{\PYZhy{}} \PY{n}{q\PYZus{}e} \PY{o}{\PYZhy{}} \PY{n}{q\PYZus{}t}
+
+\PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{eq}\PY{p}{)}
+\PY{n}{T\PYZus{}w\PYZus{}calc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{object}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{T\PYZus{}w\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{eq}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}w}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}w = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K for T\PYZus{}a = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{T\PYZus{}w\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+T\_w = 302.4 K for T\_a = 305.0 K
+T\_w = 306.5 K for T\_a = 310.0 K
+T\_w = 310.5 K for T\_a = 315.0 K
+T\_w = 314.6 K for T\_a = 320.0 K
+    \end{Verbatim}
+
+    \hypertarget{calculate-q_t}{%
+\paragraph{\texorpdfstring{Calculate
+\(q_t\)}{Calculate q\_t}}\label{calculate-q_t}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{24}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{object}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{q\PYZus{}t}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{T\PYZus{}w}\PY{p}{,} \PY{n}{T\PYZus{}w\PYZus{}calc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Heat entering = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ W/m\PYZca{}2 for T\PYZus{}a = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ K}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{T\PYZus{}a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Heat entering = 6.0 W/m\^{}2 for T\_a = 305.0 K
+Heat entering = 16.2 W/m\^{}2 for T\_a = 310.0 K
+Heat entering = 26.3 W/m\^{}2 for T\_a = 315.0 K
+Heat entering = 36.5 W/m\^{}2 for T\_a = 320.0 K
+    \end{Verbatim}
+
+    \hypertarget{plot}{%
+\subsubsection{Plot}\label{plot}}
+
+\begin{itemize}
+\tightlist
+\item
+  Temp Drop Due to Water (\(T_a - T_w\)) vs Outside Air Temp (\(T_a\))
+\item
+  Total Heat Flux Entering (\(q_t\)) vs Outside Air Temp (\(T_a\))
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{25}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+\PY{n}{make\PYZus{}plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{T\PYZus{}a}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{T\PYZus{}a}\PY{o}{\PYZhy{}}\PY{n}{T\PYZus{}w\PYZus{}calc}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}T\PYZus{}a\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}T\PYZus{}w\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+          \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temp Drop Due to Water (\PYZdl{}T\PYZus{}a \PYZhy{} T\PYZus{}w\PYZdl{}) vs Outside Air Temp (\PYZdl{}T\PYZus{}a\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+\PY{n}{make\PYZus{}plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{T\PYZus{}a}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{q\PYZus{}t\PYZus{}calc\PYZus{}2}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}T\PYZus{}a\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}q\PYZus{}t\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+          \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Heat Flux Entering (\PYZdl{}q\PYZus{}t\PYZdl{}) vs Outside Air Temp (\PYZdl{}T\PYZus{}a\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{n}{w\PYZus{}pad}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A. Shrivastava \emph{et al}.
+  \href{https://github.com/relaxxpls/CL246-G15/blob/main/docs/papers/Experimental_validation_of_a_thermal_mod.pdf}{``Evaporative
+  cooling model\ldots{}''} (1984)
+\item
+  F. Incropera \emph{et al}.
+  \href{https://books.google.co.in/books?id=5cgbAAAAQBAJ\&newbks=0\&hl=en\&source=newbks_fb\&redir_esc=y}{``Fundamentals
+  of Heat and Mass Transfer''}
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
