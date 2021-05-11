@@ -1,4 +1,4 @@
-# Goal 2: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
+# Case 1: No Water Layer - [`notebook`](heat_flux_no_water.ipynb)
 
 Find Resultant Resistance and Heat Rate
 

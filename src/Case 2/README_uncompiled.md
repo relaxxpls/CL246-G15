@@ -1,4 +1,4 @@
-# Goal 1: Water Layer - [`notebook`](water_surf_temp.ipynb)
+# Case 2: Water Layer - [`notebook`](water_surf_temp.ipynb)
 
 Find Temperature of Water Surface, $T_w$
 
