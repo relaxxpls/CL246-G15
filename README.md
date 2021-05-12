@@ -25,6 +25,3 @@ The drastic reduction evident here indicates that this might be a viable method 
 
 * [Papers referenced](/docs/papers/)
 
-## Miscellaneous
-
-* [OpenFOAM Setup](/docs/setup/README.md)
