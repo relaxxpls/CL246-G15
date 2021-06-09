@@ -6,7 +6,7 @@
 
 Lowering energy consumption in large buildings by reducing the cooling load, using a thin water layer to facilitate evaporative cooling.
 
-## [Solve](/code/)
+## [Solve](/src/)
 
 ## Results
 
